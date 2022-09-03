@@ -5,5 +5,5 @@ from .routes.userRoute import userRoute
 app = create_app()
 # define all routes and connect them here
 @app.route('/route_name')
-def method_name():
-    userRoute()
+def getUser():
+    return userRoute()
