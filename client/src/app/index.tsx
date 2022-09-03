@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import '../Assets/css/App.css';
+import React, { useState } from 'react';
+import '../assets/css/App.css';
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0);
   return (
     <div className="App">
@@ -16,5 +16,3 @@ function App() {
     </div>
   );
 }
-
-export default App
