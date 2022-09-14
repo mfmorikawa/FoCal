@@ -1,8 +1,7 @@
-from flask import Flask
+from app import app
 
-def create_app():
-    app = Flask(__name__)
-    return app
+if __name__ == '__main__':
+    app.run()
 
 # https://www.datasciencelearner.com/react-with-python-flask-api/
 # https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
