@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import AddEventModal from "./AddEventModal";
+import EventModal from "./EventModal";
 
 export default function Calendar() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -19,10 +19,10 @@ export default function Calendar() {
                 <FullCalendar
                     ref={ calendarRef }
                     plugins = { [ dayGridPlugin ] }
-                    initialView = "dayGridMonth"
+                    initialView = "dayGridWeek"
                 />
             </div>
-            <AddEventModal 
+            <EventModal 
                 isOpen={ modalOpen } 
                 onClose={ () => setModalOpen(false) } 
                 onEventAdded={ event => onEventAdded(event) }

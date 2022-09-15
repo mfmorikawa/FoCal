@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Datetime from 'react-datetime';
 
-export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
+export default function EventModal({ isOpen, onClose, onEventAdded }) {
     const [title, setTitle] = useState('');
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState(new Date());
@@ -19,7 +19,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
 
     return (
         <Modal isOpen={ isOpen } onRequestClose={ onClose }>
-            <form onSubmit={ onSubmit } style={{ position: 'relative', zIndex: 1 }}>
+            <form onSubmit={ onSubmit } style={{ position: 'relative', zIndex: 2 }}>
                 <input placeholder='Title' value={ title } onChange={ e => setTitle(e.target.value) } />
                 
                 <div>
