@@ -31,3 +31,6 @@ __pycache__/
 
 # Python virtual environment
 venv/
+
+# Local Database
+*.sqlite
