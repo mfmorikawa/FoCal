@@ -1,5 +1,5 @@
 from datetime import datetime
-from database.connection.init import db
+from .init import db
 
 
 
@@ -20,17 +20,17 @@ class Project(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
     name = db.Column(db.String)
     description = db.Column(db.String)
-    creation_date = db.Column(db.DateTime, nullable = False, defualt = datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     deadline = db.Column(db.DateTime)
 
-    tasks = db.relationship("Task", back_populates = "project")
+    tasks = db.relationship("Task", backref = "project")
 
 class Task(db.Model):
     __tablename__ = "task"
     id = db.Column(db.Integer, primary_key = True)
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable = False)
     name = db.Column(db.String)
-    duration_minutes = (db.Integer)
+    duration_minutes = db.Column(db.Integer)
     completed = db.Column(db.Boolean, default = False)
     
 
