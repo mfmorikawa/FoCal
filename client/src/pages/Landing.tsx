@@ -9,7 +9,7 @@ const navigation = [
   { name: 'Company', href: '#' },
 ]
 
-export default function Example() {
+export default function Landing() {
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="mx-auto max-w-7xl">

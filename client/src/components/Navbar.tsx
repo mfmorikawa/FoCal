@@ -1,22 +1,28 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
+  { name: 'Home', href: '#', current: true },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
+  { name: 'Focus', href: '#', current: false },
 ]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Navbar({...props}) {
+  // TODO: use match to sync with current route
+  const [current, setCurrent] = useState(false);
+  function toggeCurrent(...props: any[]  ){
+    setCurrent(props[0]);
+  }
+
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-800 sticky top-0">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
