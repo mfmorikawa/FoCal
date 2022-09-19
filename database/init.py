@@ -5,10 +5,11 @@ from app import app
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+# Need to change to different database when deployed
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
     basedir, "data.sqlite"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
-
+db.create_all()
