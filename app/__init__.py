@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from config import config
+from server.config import config
 
 db = SQLAlchemy()
 api = Api()
+
 
 def create_app(config_name):
     app = Flask(__name__)

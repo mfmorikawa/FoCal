@@ -3,6 +3,8 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Todo: Look into config options needed
+
+
 class Config:
     """Non environment specific confic options are contained here"""
 
@@ -16,7 +18,8 @@ class Config:
 class DevelopmentConfig(Config):
     """Config settings for development environment."""
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "data.sqlite")
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + \
+        os.path.join(basedir, "data.sqlite")
 
 
 class ProductionConfig(Config):
