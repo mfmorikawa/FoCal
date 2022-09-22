@@ -1,4 +1,4 @@
-from server.FoCal import app
+from FoCal import app
 
 if __name__ == '__main__':
     app.run()
