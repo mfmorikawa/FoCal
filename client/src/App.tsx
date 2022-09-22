@@ -11,7 +11,7 @@ function App() {
     <Fragment>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home { ...{ name: "Welcome Username" }}/> }/>
       </Routes>
     </Fragment>
   )

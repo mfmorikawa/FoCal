@@ -4,7 +4,6 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
   const [open, setOpen] = useState(true)
-
   const cancelButtonRef = useRef(null)
 
   return (
