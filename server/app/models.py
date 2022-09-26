@@ -1,40 +1,58 @@
+"""Create database models as well as marhmallow schemas for serialization/deserialization"""
+from dataclasses import field
 from datetime import datetime, timezone
+from marshmallow import Schema, fields
 from . import db
 
 
-class User(db.Model):
-    __tablename__ = "user"
+# class User(db.Model):
+#     __tablename__ = "user"
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
-    email = db.Column(db.String, unique=True)
-    join_date = db.Column(
-        db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
-    )
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String, unique=True)
+#     email = db.Column(db.String, unique=True)
+#     join_date = db.Column(
+#         db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
+#     )
 
-    projects = db.relationship("Project", backref="user")
+#     projects = db.relationship("Project", backref="user")
 
 
-class Project(db.Model):
-    __tablename__ = "project"
+# class Project(db.Model):
+#     __tablename__ = "project"
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String)
-    creation_date = db.Column(
-        db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
-    )
-    deadline = db.Column(db.DateTime)
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+#     name = db.Column(db.String, nullable=False)
+#     description = db.Column(db.String)
+#     creation_date = db.Column(
+#         db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
+#     )
+#     deadline = db.Column(db.DateTime)
 
-    tasks = db.relationship("Task", backref="project")
+#     tasks = db.relationship("Task", backref="project")
 
 
 class Task(db.Model):
     __tablename__ = "task"
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    name = db.Column(db.String, nullable=False)
-    duration_minutes = db.Column(db.Integer)
+    # project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    title = db.Column(db.String, nullable=False)
+    start = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
+    isAllDay = db.Column(db.Boolean, default=False)
+
     # Whether or not the task has been completed, should be used for UI purposes
-    completed = db.Column(db.Boolean, default=False)
+    isCompleted = db.Column(db.Boolean, default=False)
+
+
+# SCHEMAS
+
+
+class TasksSchema(Schema):
+    id = fields.Int()
+    title = fields.Str()
+    start = fields.DateTime("%Y-%m-%d %H:%M:%S")
+    end = fields.DateTime("%Y-%m-%d %H:%M:%S")
+    isAllDay = fields.Boolean()
+    isCompleted = fields.Boolean()
