@@ -1,6 +1,8 @@
 from datetime import datetime
 from time import strftime
-from flask_restful import Resource, fields, marshal_with, reqparse
+from flask import request
+from flask_restful import Resource
+from marshmallow import ValidationError
 from app import db
 from ..models import Task, TasksSchema
 from . import api
@@ -82,8 +84,25 @@ class TaskListAPI(Resource):
         return {"tasks":result}
 
     def post(self):
+        json_data = request.get_json()
+        if not json_data:
+            return {"message":"Empty request"}, 400
+        
+        try:
+            data = tasks_schema.load(json_data)
+        except ValidationError as err:
+            print(err.messages)
+            return err.messages, 422
+        
+        # If an id was explicitly given check to make sure its not in use
+        if data.id and Task.query.get(data.id):
+            return {"message": f"Resource with id = {data.id} already exists"}, 409
+        db.session.add(data)
+        db.session.commit()
+        #! TODO: Handle cases if id is not given
+        result = tasks_schema.dump(Task.query.get(data.id))
 
-        pass
+        return {"message":"New task created.", "task":result}, 201
 
 
 class TaskAPI(Resource):
