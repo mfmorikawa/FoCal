@@ -2,6 +2,8 @@
 from dataclasses import field
 from datetime import datetime, timezone
 from marshmallow import Schema, fields, post_load, pre_load
+from sqlalchemy_utils import UUIDType
+import uuid
 from . import db
 
 
@@ -37,6 +39,7 @@ class Task(db.Model):
     __tablename__ = "task"
     id = db.Column(db.Integer, primary_key=True)
     # project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    objectID = db.Column(UUIDType(binary=False), default=uuid.uuid4)
     title = db.Column(db.String, nullable=False)
     start = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
