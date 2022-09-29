@@ -25,7 +25,7 @@ export default function Navbar({...props}) {
     setCurrent(navigation.filter((item)=>{ item.current})[0].name);
   }
   const image : ImageDescriptorProps = {
-    url : "/src/assets/ceo_img.jpg",
+    url : "/src/assets/face_one.jpg",
     alt_text : "profile_img"
   }
 
