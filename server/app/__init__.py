@@ -13,6 +13,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     db.init_app(app)
+    db.create_all(app=app)
     api.init_app(app)
     from .routing import routing as routes_bp
     from .api import api_bp
