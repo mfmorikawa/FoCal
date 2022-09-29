@@ -1,7 +1,9 @@
 /* This example requires Tailwind CSS v2.0+ */
+import Avatar from './Avatar'
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ImageDescriptorProps } from '../vite-env'
 
 const navigation = [
   { name: 'Home', href: '#', current: true },
@@ -18,9 +20,13 @@ function classNames(...classes: string[]) {
 
 export default function Navbar({...props}) {
   // TODO: use match to sync with current route
-  const [current, setCurrent] = useState(false);
+  const [current, setCurrent] = useState("");
   function toggeCurrent(...props: any[]  ){
-    setCurrent(props[0]);
+    setCurrent(navigation.filter((item)=>{ item.current})[0].name);
+  }
+  const image : ImageDescriptorProps = {
+    url : "http://image.jpg",
+    alt_text : "avatar"
   }
 
   return (
@@ -85,11 +91,7 @@ export default function Navbar({...props}) {
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <Avatar { ...image } />
                     </Menu.Button>
                   </div>
                   <Transition
