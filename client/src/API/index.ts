@@ -1,7 +1,8 @@
 import axios from "axios";
+import { Event } from "react-big-calendar";
 
 const api = axios.create({
-    url: "http://localhost:4000"
+    baseURL: "http://localhost:5000/api/v1"
 });
 
 async function createTask(task: Event) {
@@ -12,12 +13,12 @@ async function createTask(task: Event) {
         });
 }
 
-async function updateTask(id: string, newProps: string) {
-    return await api.put(`/Task:${id}`, newProps);
+async function updateTask(task: Event, index: number) {
+    return await api.put(`/Task:${index}`, JSON.stringify(task));
 }
 
-async function deleteTask(id: string) {
-    return await api.delete(`/Tasks:${id}`);
+async function deleteTask(task:Event, index: number) {
+    return await api.delete(`/Tasks:${index}`);
 }
 
 async function getTasks() {
