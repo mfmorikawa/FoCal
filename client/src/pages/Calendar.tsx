@@ -19,9 +19,26 @@ import startOfHour from "date-fns/startOfHour";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+import Task from "../vite-env";
+type Task = typeof Task;
+
 const locales = {
   "en-US": enUS,
 };
+
+const t1 = {
+  title: 'title',
+  start: new Date(),
+  end: new Date(),
+  ObjectID: "ID",
+  isComplete: false,
+  description: "this is the description."
+};
+
+function createTask(task: Task){
+  
+}
+
 const localizer = dateFnsLocalizer({
   format,
   parse,
