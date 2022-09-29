@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+const tasksReducer = (prev, state) => {
+    return state;
+}
+
 export const store = configureStore({
     reducer: {
-        projects: projectsReducer,
-        tasks: tasksReducer,
-        users: usersReducer
+        tasks: tasksReducer
     }
 });
 
