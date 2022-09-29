@@ -1,7 +1,5 @@
 """Create database models as well as marhmallow schemas for serialization/deserialization"""
-from dataclasses import field
-from datetime import datetime, timezone
-from marshmallow import Schema, fields, post_load, pre_load
+from marshmallow import Schema, fields
 from sqlalchemy_utils import UUIDType
 import uuid
 from . import db
@@ -59,4 +57,3 @@ class TasksSchema(Schema):
     end = fields.DateTime("%Y-%m-%d %H:%M:%S")
     isAllDay = fields.Boolean()
     isCompleted = fields.Boolean()
-
