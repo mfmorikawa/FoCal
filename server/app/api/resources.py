@@ -8,8 +8,6 @@ from ..models import Task, TasksSchema
 from . import api
 
 
-
-
 # ? Might not need to have users as a resource
 # class UserListAPI(Resource):
 #     def get(self):
@@ -73,7 +71,7 @@ from . import api
 #     def delete(self, proj_id):
 #         pass
 
-#Load schemas here
+# Load schemas here
 tasks_schema = TasksSchema()
 
 
@@ -81,43 +79,70 @@ class TaskListAPI(Resource):
     def get(self):
         tasks = Task.query.all()
         result = tasks_schema.dump(tasks, many=True)
-        return {"tasks":result}
+        return {"tasks": result}
 
     def post(self):
         json_data = request.get_json()
         if not json_data:
-            return {"message":"Empty request"}, 400
-        
+            return {"message": "Empty request"}, 400
+
         try:
             data = tasks_schema.load(json_data)
         except ValidationError as err:
             print(err.messages)
             return err.messages, 422
-        
-        # If an id was explicitly given check to make sure its not in use
-        if data.id and Task.query.get(data.id):
-            return {"message": f"Resource with id = {data.id} already exists"}, 409
-        db.session.add(data)
-        db.session.commit()
-        #! TODO: Handle cases if id is not given
-        result = tasks_schema.dump(Task.query.get(data.id))
 
-        return {"message":"New task created.", "task":result}, 201
+        new_task = Task(**data)
+        db.session.add(new_task)
+        db.session.commit()
+        result = tasks_schema.dump(new_task)
+
+        return {"message": "New task created.", "task": result}, 201
 
 
 class TaskAPI(Resource):
     def get(self, task_id):
 
-        task = Task.query.filter(Task.id==task_id).first_or_404()
-        
+        task = Task.query.filter(Task.objectID == task_id).first_or_404()
+
         result = tasks_schema.dump(task)
-        return {"task":result}
+        return {"task": result}, 200
 
     def put(self, task_id):
-        pass
+        json_data = request.get_json()
+        if not json_data:
+            return {"message": "Empty request"}, 400
+        try:
+            updated_data = tasks_schema.load(json_data)
+        except ValidationError as err:
+            print(err.messages)
+            return err.messages, 422
+        response_code = 200
 
-    def Delete(self, task_id):
-        pass
+        # Have to use query object to handle case where creation is necessary
+        task = Task.query.filter(Task.objectID==task_id)
+
+        # Check if resource with 'task_id' exists
+        #TODO: See if I can do this in a slightly cleaner way
+        if not task.first():
+            return {"message":"Task not found"}, 404
+            
+        task.update(updated_data)
+        task=task.first()
+
+        db.session.commit()
+
+        result = tasks_schema.dump(task)
+
+        return {"message": "Task updated.", "task": result}, 200
+
+    def delete(self, task_id):
+        print(task_id)
+        task = Task.query.filter(Task.objectID==task_id).first_or_404()
+
+        db.session.delete(task)
+        db.session.commit()
+        return {}, 204
 
 
 # #Register endpoints here
@@ -128,4 +153,4 @@ class TaskAPI(Resource):
 # api.add_resource(ProjectAPI, "/projects/<int:proj_id>", endpoint="project")
 
 api.add_resource(TaskListAPI, "/tasks", endpoint="tasks")
-api.add_resource(TaskAPI, "/tasks/<int:task_id>", endpoint="task")
+api.add_resource(TaskAPI, "/tasks/<uuid:task_id>", endpoint="task")

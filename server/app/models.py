@@ -53,14 +53,10 @@ class Task(db.Model):
 
 
 class TasksSchema(Schema):
-    id = fields.Int()
+    objectID = fields.UUID()
     title = fields.Str()
     start = fields.DateTime("%Y-%m-%d %H:%M:%S")
     end = fields.DateTime("%Y-%m-%d %H:%M:%S")
     isAllDay = fields.Boolean()
     isCompleted = fields.Boolean()
 
-    @post_load
-    def make_task(self, data, **kwargs):
-        return Task(**data)
-    
