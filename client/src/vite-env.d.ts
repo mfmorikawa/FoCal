@@ -2,7 +2,7 @@
 import { TaskAbortError } from "@reduxjs/toolkit";
 import Event from "react-big-calendar";
 
-export interface ImageDescriptorProps {
+export type ImageDescriptorProps = {
     url: string;
     alt_text: string;
 }
