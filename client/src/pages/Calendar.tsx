@@ -42,23 +42,6 @@ const start = endOfHour(now);
 const end = addHours(start, 1);
 const FullCalendar = withDragAndDrop(BigCalendar);
 // events and background events
-const testEvents = [
-  {
-    title: "Operating Systems",
-    start: new Date(2022, 8, 28, 11, 30),
-    end: new Date(2022, 8, 28, 12, 50),
-  },
-  {
-    title: "Python Programming",
-    start: new Date(2022, 8, 28, 18),
-    end: new Date(2022, 8, 28, 19, 50),
-  },
-  {
-    title: "Software Engineering",
-    start: new Date(2022, 8, 29, 15),
-    end: new Date(2022, 8, 29, 16, 50),
-  },
-];
 const timeblocks: Event[] = [
   {
     title: "Avalabilty",
@@ -67,35 +50,42 @@ const timeblocks: Event[] = [
   }
 ];
 
-const inexOfUUID = new Map();
+const indexOfUUID = new Map();
 //Calendar Page
 export default function Calendar() {
-  const [events, setEvents] = useState<Event[]>(testEvents);
+  const [events, setEvents] = useState<Event[]>([]);
   // modal state logic
-  const [open, setOpen] = useState(false)
-  const cancelButtonRef = useRef(null)
-
-  // useEffect(() => {
-  //   getTasks()
-  //     .then(res => setEvents(res.json())) }
-  //   ,[]
-  // );
-
+  const [open, setOpen] = useState(false);
+  const cancelButtonRef = useRef(null);
   const [selectedEvent, setSelectedEvent] = useState({
     title: "None",
     start: new Date(),
     end: new Date()
   });
-  const createEvent = (title="No title", start = new Date(), end = new Date(), isAllDay=false) => {
-    const newEvent = {
-      title: title, 
-      start: start,
-      end: end,
-      allDay: isAllDay
-    }
-    // createTask(newEvent);
+  const createEvent = (newEvent: Event) => {
+    const UUID = createTask(newEvent).then(res=>res);
     setEvents((prev: Event[]) => [...prev, newEvent]);
+    // indexOfUUID.set(events.indexOf(newEvent), UUID);
   }
+
+  useEffect(() => {
+    getTasks()
+      .then((res) => {
+        const evts = JSON.parse(String(res)).data.tasks;
+        for (const task of evts) {
+          const loadedEvent: Event = {
+            title: task.title,
+            start: new Date(task.start),
+            end: new Date(task.end),
+            allDay: task.isAllDay
+          }
+
+          setEvents((prevEvts: Event[])=>{
+            return [...prevEvts, loadedEvent];
+          })
+        }
+      });
+  },[]);
 
   const updateEvent = (event: Event, start: stringOrDate, end: stringOrDate) => {
     if (events)
@@ -107,6 +97,7 @@ export default function Calendar() {
         start: new Date(start),
         end: new Date(end),
       };
+      // createTask(updatedEvent);
       return [...currentEvents, updatedEvent];
     });
   };
@@ -116,7 +107,7 @@ export default function Calendar() {
     setEvents((currentEvents: Event[]) => {
       const index = currentEvents.indexOf(event);
       currentEvents.splice(index, 1);
-      // deleteTask(event, 1);
+      // deleteTask(indexOfUUID.get(index));
       return [...currentEvents];
     });
   };
@@ -124,7 +115,7 @@ export default function Calendar() {
   const handleSelectSlot = useCallback(
     ({ start, end }: SlotInfo) => {
       const title = String(window.prompt('New Task name'));
-      createEvent(title, start, end);
+      createEvent({title, start, end, allDay:false});
     },
     [updateEvent]
   );
@@ -150,7 +141,8 @@ export default function Calendar() {
       defaultDate: new Date(2022, 8, 30, 12),
       views: {
         week: true,
-        month: true
+        month: true,
+        day: true
       },
     }), []
   );
@@ -230,7 +222,7 @@ export default function Calendar() {
       <FullCalendar
         backgroundEvents={timeblocks}
         localizer={localizer}
-        defaultView={Views.WEEK}
+        defaultView={Views.DAY}
         views={ views }
         events={events}
         onSelectSlot={handleSelectSlot}
@@ -239,7 +231,7 @@ export default function Calendar() {
         onEventResize={onEventResize}
         selectable
         resizable
-        style={{ height: 600, margin: 50 }}
+        style={{ height: 700, margin: 50 }}
         step={2}
         timeslots={30}
       />
