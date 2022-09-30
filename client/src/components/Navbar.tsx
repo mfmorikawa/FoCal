@@ -55,7 +55,7 @@ export default function Navbar({...props}) {
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="/public/vite.svg"
+                    src="/vite.svg"
                     alt="Your Company"
                   />
                 </div>
