@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, ReactNode, useRef, Fragment, useEffect } from "react";
+import { useState, useMemo, useCallback, useRef, Fragment, useEffect } from "react";
 import {
   Calendar as BigCalendar,
   dateFnsLocalizer,
@@ -23,7 +23,6 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
-import { createTask, getTasks, updateTask, deleteTask } from "../API";
 
 // construccts necessary for calendar and timekeeping
 const locales = {
@@ -63,29 +62,8 @@ export default function Calendar() {
     end: new Date()
   });
   const createEvent = (newEvent: Event) => {
-    const UUID = createTask(newEvent).then(res=>res);
     setEvents((prev: Event[]) => [...prev, newEvent]);
-    // indexOfUUID.set(events.indexOf(newEvent), UUID);
   }
-
-  useEffect(() => {
-    getTasks()
-      .then((res) => {
-        const evts = JSON.parse(String(res)).data.tasks;
-        for (const task of evts) {
-          const loadedEvent: Event = {
-            title: task.title,
-            start: new Date(task.start),
-            end: new Date(task.end),
-            allDay: task.isAllDay
-          }
-
-          setEvents((prevEvts: Event[])=>{
-            return [...prevEvts, loadedEvent];
-          })
-        }
-      });
-  },[]);
 
   const updateEvent = (event: Event, start: stringOrDate, end: stringOrDate) => {
     if (events)
@@ -97,7 +75,6 @@ export default function Calendar() {
         start: new Date(start),
         end: new Date(end),
       };
-      // createTask(updatedEvent);
       return [...currentEvents, updatedEvent];
     });
   };
@@ -107,7 +84,6 @@ export default function Calendar() {
     setEvents((currentEvents: Event[]) => {
       const index = currentEvents.indexOf(event);
       currentEvents.splice(index, 1);
-      // deleteTask(indexOfUUID.get(index));
       return [...currentEvents];
     });
   };

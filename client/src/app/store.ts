@@ -1,8 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-const tasksReducer = (prev, state) => {
-    return state;
-}
+import tasksReducer from  '../features/tasks/tasksSlice'
 
 export const store = configureStore({
     reducer: {
