@@ -4,14 +4,16 @@ import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ImageDescriptorProps } from '../vite-env'
+import { Link } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Focus', href: '#', current: false },
-  { name: 'Sign Up', href: '#', current: false },
-  { name: 'Sign In', href: '#', current: false },
-  { name: 'Settings', href: '#', current: false },
+  { name: 'Home', to: 'home', current: true },
+  { name: 'Calendar', to: 'calendar', current: false },  
+  { name: 'Projects', to: 'projects', current: false },
+  { name: 'Focus', to: 'focus', current: false },
+  { name: 'Sign Up', to: 'sign-up', current: false },
+  { name: 'Sign In', to: 'sign-in', current: false },
+  { name: 'Settings', to: 'settings', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -64,7 +66,7 @@ export default function Navbar({...props}) {
                     {navigation.map((item) => (
                       <a
                         key={item.name}
-                        href={item.href}
+                        href={item.to}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
@@ -144,10 +146,10 @@ export default function Navbar({...props}) {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
+                <Link to={item.to}>
                 <Disclosure.Button
                   key={item.name}
-                  as="a"
-                  href={item.href}
+                  as="span"
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
@@ -156,6 +158,7 @@ export default function Navbar({...props}) {
                 >
                   {item.name}
                 </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>
