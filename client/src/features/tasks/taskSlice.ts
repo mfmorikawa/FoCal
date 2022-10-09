@@ -4,16 +4,16 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface Task {
   ObjectID: string | undefined;
   projectID: string | undefined;
-  index: number;
+  isComplete: boolean;
   eventObject: Event;
 }
 
-const initialState: { task: Task[] } = {
-  task: [
+const initialState: { tasks: Task[] } = {
+  tasks: [
     {
       ObjectID: undefined,
       projectID: undefined,
-      index: -1,
+      isComplete: false,
       eventObject: {
         title: "title",
         start: new Date(),
