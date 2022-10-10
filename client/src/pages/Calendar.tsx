@@ -1,4 +1,11 @@
-import { useState, useMemo, useCallback, useRef, Fragment, useEffect } from "react";
+import {
+  useState,
+  useMemo,
+  useCallback,
+  // useRef,
+  // Fragment,
+  // useEffect,
+} from "react";
 import {
   Calendar as BigCalendar,
   dateFnsLocalizer,
@@ -7,6 +14,7 @@ import {
   stringOrDate,
   Views,
 } from "react-big-calendar";
+
 import withDragAndDrop, {
   withDragAndDropProps,
 } from "react-big-calendar/lib/addons/dragAndDrop";
@@ -40,7 +48,7 @@ const FullCalendar = withDragAndDrop(BigCalendar);
 
 //Calendar Page
 export default function Calendar() {
-  const [events, setEvents] = useState<Event[]>([]);
+  // const [events, setEvents] = useState<Event[]>([]);
 
   // const [selectedEvent, setSelectedEvent] = useState({
   //   title: "None",
@@ -48,23 +56,27 @@ export default function Calendar() {
   //   end: new Date()
   // });
 
-  const createEvent = (newEvent: Event) => {
-    setEvents((prev: Event[]) => [...prev, newEvent]);
-  }
+  // const createEvent = (newEvent: Event) => {
+  //   setEvents((prev: Event[]) => [...prev, newEvent]);
+  // };
 
-  const updateEvent = (event: Event, start: stringOrDate, end: stringOrDate) => {
-    if (events)
-    setEvents((currentEvents: Event[]) => {
-      const index = currentEvents.indexOf(event);
-      currentEvents.splice(index, 1);
-      const updatedEvent = {
-        title: event.title,
-        start: new Date(start),
-        end: new Date(end),
-      };
-      return [...currentEvents, updatedEvent];
-    });
-  };
+  // const updateEvent = (
+  //   event: Event,
+  //   start: stringOrDate,
+  //   end: stringOrDate
+  // ) => {
+  //   if (events)
+  //     setEvents((currentEvents: Event[]) => {
+  //       const index = currentEvents.indexOf(event);
+  //       currentEvents.splice(index, 1);
+  //       const updatedEvent = {
+  //         title: event.title,
+  //         start: new Date(start),
+  //         end: new Date(end),
+  //       };
+  //       return [...currentEvents, updatedEvent];
+  //     });
+  // };
 
   // const deleteEvent = (event: Event) => {
   //   if (events)
@@ -75,13 +87,13 @@ export default function Calendar() {
   //   });
   // };
 
-  const handleSelectSlot = useCallback(
-    ({ start, end }: SlotInfo) => {
-      const title = String(window.prompt('New Task name'));
-      createEvent({title, start, end, allDay:false});
-    },
-    [updateEvent]
-  );
+  // const handleSelectSlot = useCallback(
+  //   ({ start, end }: SlotInfo) => {
+  //     const title = String(window.prompt("New Task name"));
+  //     createEvent({ title, start, end, allDay: false });
+  //   },
+  //   [updateEvent]
+  // );
 
   // const handleSelectEvent = useCallback(
   //   (event: Event) => {
@@ -89,15 +101,14 @@ export default function Calendar() {
   //   }, [updateEvent]
   // );
 
-  const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
-    const { event, start, end } = data;
-    updateEvent(event, start, end);
-  };
-  const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
-    const { event, start, end } = data;
-    updateEvent(event, start, end);
-  };
-
+  // const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
+  //   const { event, start, end } = data;
+  //   updateEvent(event, start, end);
+  // };
+  // const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
+  //   const { event, start, end } = data;
+  //   updateEvent(event, start, end);
+  // };
 
   const { views } = useMemo(
     () => ({
@@ -105,34 +116,36 @@ export default function Calendar() {
         week: true,
         work_week: true,
         month: true,
-        day: true
+        day: true,
       },
-    }), []
+    }),
+    []
   );
 
   const pageStyle: React.CSSProperties = {
-    backgroundImage: 'url(https://www.freepik.com/free-photo/gray-abstract-wireframe-technology-background_15474085.htm#query=white%20background&position=15&from_view=keyword)',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'
-  }
+    backgroundImage:
+      "url(https://www.freepik.com/free-photo/gray-abstract-wireframe-technology-background_15474085.htm#query=white%20background&position=15&from_view=keyword)",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
 
   return (
-    <div style={ pageStyle }>
+    <div style={pageStyle}>
       <FullCalendar
         localizer={localizer}
         defaultView={Views.DAY}
-        views={ views }
-        events={events}
-        onSelectSlot={handleSelectSlot}
-        onEventDrop={onEventDrop}
-        onEventResize={onEventResize}
+        views={views}
+        events={tasks}
+        // onSelectSlot={handleSelectSlot}
+        // onEventDrop={onEventDrop}
+        // onEventResize={onEventResize}
         selectable
         resizable
         style={{ height: 500, margin: 50 }}
         step={5}
         timeslots={12}
-        defaultDate={new Date(2022,9,13)}
+        defaultDate={new Date(2022, 9, 13)}
       />
     </div>
   );

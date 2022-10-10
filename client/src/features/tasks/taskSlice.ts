@@ -15,9 +15,9 @@ const initialState: { tasks: Task[] } = {
       projectID: undefined,
       isComplete: false,
       eventObject: {
-        title: "title",
-        start: new Date(),
-        end: new Date(),
+        title: "House of Dragons",
+        start: new Date(2022,9,9,17,30),
+        end: new Date(2022,9,9,19),
         allDay: false,
         resource: null,
       },
@@ -30,7 +30,7 @@ export const tasksSlice = createSlice({
   initialState,
   reducers: {
     update: (state, actions) => {
-      state = actions.payload;
+      state.tasks.push(actions.payload);
     },
   },
 });
