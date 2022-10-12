@@ -1,7 +1,9 @@
-import Calendar from "./Calendar";
-import Modal from "../components/Modal";
+import Calendar, {
+  heightProp
+} from "../../components/Calendar";
+import Modal from "../../components/Modal";
 
-export default function Home() {
+export default function Scheduler(prop: heightProp) {
   function handleAddTask() {
     return <Modal />;
   }
@@ -11,7 +13,7 @@ export default function Home() {
         {"Add Task"}
       </button>
       <main className="calendar-container">
-        <Calendar />
+        <Calendar height={prop.height} />
       </main>
     </div>
   );

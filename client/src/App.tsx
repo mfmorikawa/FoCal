@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Calendar from './pages/Calendar';
+import Scheduler from './pages/Scheduler';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import PrivateRoutes
@@ -13,7 +13,7 @@ export default function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path='/home' element={<Home />} />
-          <Route path='/calendar' element={<Calendar />} />  
+          <Route path='/calendar' element={<Scheduler height={700} />} />  
         </Route>
         <Route path='/' element={<Landing />} />
       </Routes>
