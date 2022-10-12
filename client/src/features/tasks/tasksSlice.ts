@@ -4,8 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface Task {
   ObjectID: string | undefined;
   projectID: string | undefined;
-  isComplete: boolean;
   eventObject: Event;
+  isComplete: boolean;
 }
 
 const initialState: { tasks: Task[] } = {
@@ -13,7 +13,6 @@ const initialState: { tasks: Task[] } = {
     {
       ObjectID: undefined,
       projectID: undefined,
-      isComplete: false,
       eventObject: {
         title: "House of Dragons",
         start: new Date(2022,9,9,17,30),
@@ -21,6 +20,7 @@ const initialState: { tasks: Task[] } = {
         allDay: false,
         resource: null,
       },
+      isComplete: false
     },
   ],
 };
