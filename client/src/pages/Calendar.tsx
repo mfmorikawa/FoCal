@@ -9,14 +9,14 @@ import {
 import {
   Calendar as BigCalendar,
   dateFnsLocalizer,
-  Event,
-  SlotInfo,
-  stringOrDate,
+  // Event,
+  // SlotInfo,
+  // stringOrDate,
   Views,
 } from "react-big-calendar";
 
-import withDragAndDrop, {
-  withDragAndDropProps,
+import withDragAndDrop, { 
+  withDragAndDropProps
 } from "react-big-calendar/lib/addons/dragAndDrop";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
@@ -44,7 +44,7 @@ const endOfHour = (date: Date): Date => addHours(startOfHour(date), 1);
 const now = new Date();
 const start = endOfHour(now);
 const end = addHours(start, 1);
-const FullCalendar = withDragAndDrop(BigCalendar);
+const CalendarComponent = withDragAndDrop(BigCalendar);
 
 //Calendar Page
 export default function Calendar() {
@@ -113,10 +113,8 @@ export default function Calendar() {
   const { views } = useMemo(
     () => ({
       views: {
-        week: true,
-        work_week: true,
-        month: true,
         day: true,
+        week: true
       },
     }),
     []
@@ -132,17 +130,17 @@ export default function Calendar() {
 
   return (
     <div style={pageStyle}>
-      <FullCalendar
+      <CalendarComponent
         localizer={localizer}
         defaultView={Views.DAY}
         views={views}
-        events={tasks}
+        // events={tasks}
         // onSelectSlot={handleSelectSlot}
         // onEventDrop={onEventDrop}
         // onEventResize={onEventResize}
         selectable
         resizable
-        style={{ height: 500, margin: 50 }}
+        style={{ height: 900, margin: 50 }}
         step={5}
         timeslots={12}
         defaultDate={new Date(2022, 9, 13)}

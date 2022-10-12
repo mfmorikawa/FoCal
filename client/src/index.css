@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-blue {
+    @apply fixed inset-y-24 justify-end  z-10 object-cover mr-4
+    rounded-md bg-blue-800 h-10 px-4 py-2 font-bold text-slate-50
+    md:mr-8
+    lg:h-12 lg:w-1/6 lg:mr-20
+    hover:opacity-70
+}
+
+.calendar-container {
+    @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center
+}
