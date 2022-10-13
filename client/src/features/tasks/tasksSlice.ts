@@ -1,7 +1,6 @@
 import { Event } from "react-big-calendar";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { startOfDay } from "date-fns";
 
 export interface Task {
   ObjectID: string | undefined;
@@ -57,14 +56,13 @@ export const tasksSlice = createSlice({
       state.tasks.push(newTask);
     },
     updateTask: (state, actions: PayloadAction<{cur: Event, start: Date, end: Date}>) => {
-      const events = state.tasks.map(task => task.eventObject);
-      const curIdx = events.indexOf(actions.payload.cur);
-      const oldTask = state.tasks.splice(curIdx,1)[0];
+      const index = state.tasks.findIndex( (task:Task) => Object.values(task.eventObject) == Object.values(actions.payload.cur));
       const updatedEvent = {
         ...actions.payload.cur,
         start: actions.payload.start,
         end: actions.payload.end
       }
+      const oldTask = state.tasks.splice(index, 1)[0];
       state.tasks.push({...oldTask, eventObject: updatedEvent});
     },
     removeTask: (state, actions: PayloadAction<Event>) => {
@@ -72,7 +70,6 @@ export const tasksSlice = createSlice({
     }
   },
 });
-
 
 export const { createTask, updateTask, removeTask } = tasksSlice.actions;
 
