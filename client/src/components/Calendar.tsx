@@ -9,11 +9,14 @@ import {
   import {
     Calendar as BigCalendar,
     dateFnsLocalizer,
-    // Event,
-    // SlotInfo,
-    // stringOrDate,
+    Event,
+    SlotInfo,
+    stringOrDate,
     Views,
   } from "react-big-calendar";
+
+  import TaskList from '../features/tasks/TaskList';
+  import { createTask, removeTask, updateTask } from '../features/tasks/tasksSlice';
   
   import withDragAndDrop, { 
     withDragAndDropProps
@@ -28,6 +31,7 @@ import {
   
   import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
   import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useAppDispatch } from "../app/hooks";
   
   // construccts necessary for calendar and timekeeping
   const locales = {
@@ -52,6 +56,7 @@ import {
 
   //Calendar Page
   export default function Calendar(prop: heightProp) {
+    const dispatch = useAppDispatch();
     // const [events, setEvents] = useState<Event[]>([]);
   
     // const [selectedEvent, setSelectedEvent] = useState({
@@ -59,28 +64,6 @@ import {
     //   start: new Date(),
     //   end: new Date()
     // });
-  
-    // const createEvent = (newEvent: Event) => {
-    //   setEvents((prev: Event[]) => [...prev, newEvent]);
-    // };
-  
-    // const updateEvent = (
-    //   event: Event,
-    //   start: stringOrDate,
-    //   end: stringOrDate
-    // ) => {
-    //   if (events)
-    //     setEvents((currentEvents: Event[]) => {
-    //       const index = currentEvents.indexOf(event);
-    //       currentEvents.splice(index, 1);
-    //       const updatedEvent = {
-    //         title: event.title,
-    //         start: new Date(start),
-    //         end: new Date(end),
-    //       };
-    //       return [...currentEvents, updatedEvent];
-    //     });
-    // };
   
     // const deleteEvent = (event: Event) => {
     //   if (events)
@@ -91,13 +74,14 @@ import {
     //   });
     // };
   
-    // const handleSelectSlot = useCallback(
-    //   ({ start, end }: SlotInfo) => {
-    //     const title = String(window.prompt("New Task name"));
-    //     createEvent({ title, start, end, allDay: false });
-    //   },
-    //   [updateEvent]
-    // );
+    const handleSelectSlot = useCallback(
+      ({ start }: SlotInfo) => {
+        const end = addHours(start, 1);
+        const title = String(window.prompt("New Task name"));
+        dispatch(createTask({ title, start, end }));
+      },
+      []
+    );
   
     // const handleSelectEvent = useCallback(
     //   (event: Event) => {
@@ -105,34 +89,38 @@ import {
     //   }, [updateEvent]
     // );
   
-    // const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
-    //   const { event, start, end } = data;
-    //   updateEvent(event, start, end);
-    // };
-    // const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
-    //   const { event, start, end } = data;
-    //   updateEvent(event, start, end);
-    // };
+    const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
+      const { event, start, end } = data;
+      dispatch(updateTask({cur: event, start: new Date(start), end: new Date(end)}));
+    };
+
+    const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
+      const { event, start, end } = data;
+      dispatch(updateTask({cur: event, start: new Date(start), end: new Date(end)}));
+    };
   
     const { views } = useMemo(
       () => ({
         views: {
           day: true,
-          week: true
+          week: true,
+          work_week: true
         },
       }),
       []
     );
-  
+    
+    const tasks = TaskList();
+
     return (
         <CalendarComponent
           localizer={localizer}
-          defaultView={Views.DAY}
+          defaultView={Views.WORK_WEEK}
           views={views}
-          // events={tasks}
-          // onSelectSlot={handleSelectSlot}
-          // onEventDrop={onEventDrop}
-          // onEventResize={onEventResize}
+          events={tasks}
+          onSelectSlot={handleSelectSlot}
+          onEventDrop={onEventDrop}
+          onEventResize={onEventResize}
           selectable
           resizable
           style={{ height: prop.height, margin: 50 }}

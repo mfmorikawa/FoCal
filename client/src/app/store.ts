@@ -4,8 +4,7 @@ import tasksReducer from  '../features/tasks/tasksSlice'
 export const store = configureStore({
     reducer: {
         tasks: tasksReducer
-    },
-    // devTools: true
+    }
 });
 
 export type RootState = ReturnType<typeof store.getState>;
