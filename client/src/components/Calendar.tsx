@@ -59,11 +59,7 @@ import { useAppDispatch } from "../app/hooks";
     const dispatch = useAppDispatch();
     // const [events, setEvents] = useState<Event[]>([]);
   
-    // const [selectedEvent, setSelectedEvent] = useState({
-    //   title: "None",
-    //   start: new Date(),
-    //   end: new Date()
-    // });
+    const [selectedEvent, setSelectedEvent] = useState<Event>();
   
     // const deleteEvent = (event: Event) => {
     //   if (events)
