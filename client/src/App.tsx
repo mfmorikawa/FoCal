@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Scheduler from './pages/Scheduler';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
+import Projects from './pages/Projects';
 import PrivateRoutes
  from './lib/PrivateRoute';
 
@@ -13,7 +14,8 @@ export default function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path='/home' element={<Home />} />
-          <Route path='/calendar' element={<Scheduler height={700} />} />  
+          <Route path='/calendar' element={<Scheduler height={700} />} />
+          <Route path='/projects' element={<Projects />} />
         </Route>
         <Route path='/' element={<Landing />} />
       </Routes>
