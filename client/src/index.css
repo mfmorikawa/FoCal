@@ -30,4 +30,9 @@
 
 
 /*|||-----|\\\V///| Projects Page Styles |\\\V///|-----|||*/
-/* TODO: ADD STYLES FOR PROJECTS PAGE */
+projects-container {
+    @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center grid col-span-3
+}
+project_column {
+    @apply rounded-md w-1/3 h-full mx-1 my-2 bg-slate-100
+}
