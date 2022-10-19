@@ -1,4 +1,4 @@
-export default function Example() {
+export default function Input() {
     return (
       <div>
         <label htmlFor="price" className="block text-sm font-medium text-gray-700">
