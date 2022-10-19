@@ -15,8 +15,6 @@ def create_app(config_name):
     db.init_app(app)
     db.create_all(app=app)
     api.init_app(app)
-    from .routing import routing as routes_bp
     from .api import api_bp
-    app.register_blueprint(routes_bp)
     app.register_blueprint(api_bp)
     return app
