@@ -4,8 +4,12 @@ from flask import request
 from flask_restful import Resource
 from marshmallow import ValidationError
 from app import db
-from ..models import Task, TasksSchema
+from ..models import Project, Task, TasksSchema
 from . import api
+
+
+
+#! Endpoints currently broken needs to have some form of user handling before proceeding
 
 
 # ? Might not need to have users as a resource
@@ -74,7 +78,7 @@ from . import api
 # Load schemas here
 tasks_schema = TasksSchema()
 
-
+@api.resource( "/tasks", endpoint="tasks")
 class TaskListAPI(Resource):
     def get(self):
         tasks = Task.query.all()
@@ -91,7 +95,8 @@ class TaskListAPI(Resource):
         except ValidationError as err:
             print(err.messages)
             return err.messages, 422
-
+        if data.get("projectID") is None:
+            data["projectID"] = Project.query.filter(Project.name == "No Project").first().objectID
         new_task = Task(**data)
         db.session.add(new_task)
         db.session.commit()
@@ -99,7 +104,7 @@ class TaskListAPI(Resource):
 
         return {"message": "New task created.", "task": result}, 201
 
-
+@api.resource("/tasks/<uuid:task_id>", endpoint="task")
 class TaskAPI(Resource):
     def get(self, task_id):
 
@@ -117,7 +122,6 @@ class TaskAPI(Resource):
         except ValidationError as err:
             print(err.messages)
             return err.messages, 422
-        response_code = 200
 
         # Have to use query object to handle case where creation is necessary
         task = Task.query.filter(Task.objectID==task_id)
@@ -152,5 +156,4 @@ class TaskAPI(Resource):
 # api.add_resource(ProjectListAPI, "/projects", endpoint="projects")
 # api.add_resource(ProjectAPI, "/projects/<int:proj_id>", endpoint="project")
 
-api.add_resource(TaskListAPI, "/tasks", endpoint="tasks")
-api.add_resource(TaskAPI, "/tasks/<uuid:task_id>", endpoint="task")
+
