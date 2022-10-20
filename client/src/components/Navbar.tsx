@@ -24,8 +24,8 @@ export default function Navbar({...props}) {
     setCurrent(navigation.filter((item)=>{ item.current})[0].name);
   }
   const image : ImageDescriptorProps = {
-    url : "/src/assets/face_one.jpg",
-    alt_text : "https://github.com/DByoyoer/FoCal/raw/main/client/src/assets/face_one.jpg"
+    url : "https://github.com/DByoyoer/FoCal/raw/main/client/src/assets/face_one.jpg",
+    alt_text : "IMG"
   }
 
   return (
