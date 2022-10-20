@@ -111,7 +111,7 @@ import { useAppDispatch } from "../app/hooks";
     return (
         <CalendarComponent
           localizer={localizer}
-          defaultView={Views.WORK_WEEK}
+          defaultView={Views.DAY}
           views={views}
           events={tasks}
           onSelectSlot={handleSelectSlot}
@@ -122,7 +122,7 @@ import { useAppDispatch } from "../app/hooks";
           style={{ height: prop.height, margin: 50 }}
           step={5}
           timeslots={12}
-          defaultDate={new Date(2022, 9, 13)}
+          defaultDate={new Date(2022, 9, 20)}
         />
     );
   }

@@ -10,10 +10,7 @@ const navigation = [
   { name: 'Home', to: 'home', current: true },
   { name: 'Calendar', to: 'calendar', current: false },  
   { name: 'Projects', to: 'projects', current: false },
-  { name: 'Focus', to: 'focus', current: false },
-  { name: 'Sign Up', to: 'sign-up', current: false },
-  { name: 'Sign In', to: 'sign-in', current: false },
-  { name: 'Settings', to: 'settings', current: false },
+  { name: 'Focus', to: 'focus', current: false }
 ]
 
 function classNames(...classes: string[]) {
@@ -28,7 +25,7 @@ export default function Navbar({...props}) {
   }
   const image : ImageDescriptorProps = {
     url : "/src/assets/face_one.jpg",
-    alt_text : "profile_img"
+    alt_text : "https://github.com/DByoyoer/FoCal/raw/main/client/src/assets/face_one.jpg"
   }
 
   return (
@@ -51,12 +48,7 @@ export default function Navbar({...props}) {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
+                    className="h-8 w-auto block"
                     src="/vite.svg"
                     alt="Your Company"
                   />

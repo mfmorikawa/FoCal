@@ -6,16 +6,17 @@ import Landing from './pages/Landing';
 import Projects from './pages/Projects';
 import PrivateRoutes
  from './lib/PrivateRoute';
+import Focus from './pages/Focus';
 
 export default function App() {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path='/home' element={<Home />} />
           <Route path='/calendar' element={<Scheduler height={700} />} />
           <Route path='/projects' element={<Projects />} />
+          <Route path='/focus' element={<Focus />} />
         </Route>
         <Route path='/' element={<Landing />} />
       </Routes>

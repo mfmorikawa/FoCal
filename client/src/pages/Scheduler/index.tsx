@@ -4,7 +4,6 @@ import { useAppDispatch } from "../../app/hooks";
 import Calendar, {
   heightProp
 } from "../../components/Calendar";
-import Modal from "../../components/Modal";
 import { createTask } from "../../features/tasks/tasksSlice";
 
 export default function Scheduler(prop: heightProp) {
@@ -20,13 +19,15 @@ export default function Scheduler(prop: heightProp) {
       []
   );
   return (
-    <div className="min-h-full grid pt-2 place-items-end">
-      <button type="button" className="btn-blue" onClick={ handleAddTask }>
-        {"Add Task"}
-      </button>
-      <main className="calendar-container">
-        <Calendar height={prop.height} />
-      </main>
-    </div>
+    <>
+      <div className="min-h-full grid pt-2 place-items-end">
+        <button type="button" className="btn-blue" onClick={ handleAddTask }>
+          {"Add Task"}
+        </button>
+        <main className="calendar-container">
+          <Calendar height={prop.height} />
+        </main>
+      </div>
+    </>
   );
 }

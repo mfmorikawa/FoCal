@@ -1,8 +1,12 @@
 import { Outlet, Navigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function PrivateRoutes() {
     let auth = { 'token': true };
     return (
-        auth.token ? <Outlet /> : <Navigate to="/" />
+        <>
+            <Navbar />
+            {auth.token ? <Outlet /> : <Navigate to="/" />}
+        </>
     );
 };
