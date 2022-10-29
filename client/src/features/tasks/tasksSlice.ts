@@ -1,11 +1,10 @@
-import { Event } from "react-big-calendar";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Event as Task } from "react-big-calendar";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
-export interface Task {
+export interface TaskResource {
   ObjectID: string | undefined;
   projectID: string | undefined;
-  eventObject: Event;
   isComplete: boolean;
 };
 
@@ -16,28 +15,26 @@ interface TaskSliceState {
 const initialState: TaskSliceState = {
   tasks: [
     {
-      ObjectID: "ABCD1234",
-      projectID: undefined,
-      eventObject: {
-        title: "House of Dragons",
-        start: new Date(2022,9,9,18),
-        end: new Date(2022,9,9,19),
-        allDay: false,
-        resource: null,
-      },
-      isComplete: false
+      title: "House of Dragons",
+      start: new Date(2022,9,29,18),
+      end: new Date(2022,9,29,19),
+      allDay: false,
+      resource: {
+        ObjectID: "ABCD1234",
+        projectID: "123",
+        isComplete: false
+      }
     },
     {
-      ObjectID: "BCDE2345",
-      projectID: undefined,
-      eventObject: {
-        title: "Software Engineering",
-        start: new Date(2022,9,13,15),
-        end: new Date(2022,9,13,16,50),
-        allDay: false,
-        resource: null,
+      title: "Software Engineering",
+      start: new Date(2022,9,31,15),
+      end: new Date(2022,9,31,16,50),
+      allDay: false,
+      resource: {
+        ObjectID: "BCDE2345",
+        projectID: undefined,
+        isComplete: false
       },
-      isComplete: false
     }
   ] 
 };
@@ -46,27 +43,24 @@ export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    createTask: (state, actions: PayloadAction<Event>) => {
-      const newTask: Task = {
-        ObjectID: "CDEF3456",
-        projectID: undefined,
-        eventObject: actions.payload,
-        isComplete: false
-      }
+    createTask: (state, actions: PayloadAction<Task>) => {
+      const newTask: Task = actions.payload;
       state.tasks.push(newTask);
     },
-    updateTask: (state, actions: PayloadAction<{cur: Event, start: Date, end: Date}>) => {
-      const index = state.tasks.findIndex( (task:Task) => Object.values(task.eventObject) == Object.values(actions.payload.cur));
+    updateTask: (state, actions: PayloadAction<{cur: Task, start: Date, end: Date}>) => {
+      const { cur, start, end } = actions.payload;
+      const index = state.tasks.findIndex( (task:Task) => task.resource.ObjectID == cur.resource.ObjectID);
       const updatedEvent = {
-        ...actions.payload.cur,
-        start: actions.payload.start,
-        end: actions.payload.end
+        ...cur,
+        start: start,
+        end: end
       }
-      const oldTask = state.tasks.splice(index, 1)[0];
-      state.tasks.push({...oldTask, eventObject: updatedEvent});
+      // remove original copy and push updated version
+      state.tasks.splice(index, 1)[0];
+      state.tasks.push(updatedEvent);
     },
-    removeTask: (state, actions: PayloadAction<Event>) => {
-      state.tasks = state.tasks.filter(({ eventObject }) => eventObject != actions.payload);
+    removeTask: (state, actions: PayloadAction<Task>) => {
+      state.tasks = state.tasks.filter(({ resource }) => resource.ObjectID != actions.payload.resource.ObjectID);
     }
   },
 });

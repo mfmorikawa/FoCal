@@ -1,8 +1,8 @@
 import { useAppSelector } from "../../app/hooks";
-import { selectTasks, Task } from "./tasksSlice";
+import { selectTasks } from "./tasksSlice";
+import { Event as Task } from "react-big-calendar";
 
 export default function TasksList() {
     const tasks: Task[] = useAppSelector(selectTasks);
-    const renderableTasks = tasks.map(task => task.eventObject);
-    return renderableTasks;
+    return tasks;
 };

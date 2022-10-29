@@ -7,7 +7,11 @@ export const store = configureStore({
         // projects: projectsReducer,
         // users: usersReducer,
         // timers: timersReducer
-    }
+    },
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware({
+            serializableCheck: false
+        })
 });
 
 export type RootState = ReturnType<typeof store.getState>;
