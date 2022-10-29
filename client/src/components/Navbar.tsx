@@ -4,13 +4,13 @@ import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ImageDescriptorProps } from '../vite-env'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', to: 'home', current: false },
-  { name: 'Calendar', to: 'calendar', current: false },  
-  { name: 'Projects', to: 'projects', current: false },
-  { name: 'Focus', to: 'focus', current: false }
+  { name: 'Home', to: 'home' },
+  { name: 'Calendar', to: 'calendar' },  
+  { name: 'Projects', to: 'projects' },
+  { name: 'Focus', to: 'focus' }
 ]
 
 function classNames(...classes: string[]) {
@@ -18,15 +18,11 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar({...props}) {
-  const [current, setCurrent] = useState("");
-  function toggeCurrent(...props: any[]  ){
-    setCurrent("Home");
-  }
+  const { pathname } = useLocation();
   const image : ImageDescriptorProps = {
     url : "https://github.com/DByoyoer/FoCal/raw/main/client/src/assets/face_one.jpg",
     alt_text : "IMG"
   }
-
   return (
     <Disclosure as="nav" className="bg-gray-800 sticky top-0 z-10">
       {({ open }) => (
@@ -59,10 +55,9 @@ export default function Navbar({...props}) {
                         key={item.name}
                         href={item.to}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          item.to === pathname.substring(1) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
                         )}
-                        aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
                       </a>
@@ -91,16 +86,16 @@ export default function Navbar({...props}) {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <Link to="/settings" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                             Settings
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <Link to="/signout" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -118,10 +113,9 @@ export default function Navbar({...props}) {
                   key={item.name}
                   as="span"
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    item.to === pathname.substring(1) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
-                  aria-current={item.current ? 'page' : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
