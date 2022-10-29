@@ -4,15 +4,15 @@ export default function Timer() {
     const [seconds, setSeconds] = useEffect(0);
     const [isActive, setIsActive] = useState(false);
 
-    function toggle(): void {
+    function toggle() {
         setIsActive(!isActive);
     }
-    function reset(): void {
+    function reset() {
         setSeconds(0);
         setIsActive(false);
     }
     useEffect(()=>{
-        let interval: number | null = null;
+        let interval = null;
         if (isActive) {
             interval = setInterval(()=>{
                 setSeconds(seconds => seconds + 1);
