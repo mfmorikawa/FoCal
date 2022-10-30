@@ -1,12 +1,13 @@
 import { addHours } from "date-fns";
 import { useCallback } from "react";
+import { View, Views } from "react-big-calendar";
 import { useAppDispatch } from "../../app/hooks";
-import Calendar, {
-  heightProp
-} from "../../components/Calendar";
+import Calendar from "../../components/Calendar";
 import { createTask } from "../../features/tasks/tasksSlice";
 
-export default function Scheduler(prop: heightProp) {
+export default function Scheduler() {
+  const height = 700;
+  const defaultView: View = Views.WEEK;
   const dispatch = useAppDispatch();
   const handleAddTask = useCallback(
       () => {
@@ -21,11 +22,17 @@ export default function Scheduler(prop: heightProp) {
   return (
     <>
       <div className="min-h-full grid pt-2 place-items-end">
-        <button type="button" className="btn-blue" onClick={ handleAddTask }>
+        <button type="button" className="btn-blue" onClick={ (e) => {
+          e.preventDefault();
+          handleAddTask 
+        }}>
           {"Add Task"}
         </button>
         <main className="calendar-container">
-          <Calendar height={prop.height} />
+          <Calendar 
+            height={height}
+            defaultView={defaultView} 
+          />
         </main>
       </div>
     </>

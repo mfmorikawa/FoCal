@@ -1,5 +1,5 @@
 import { Event as Task } from "react-big-calendar";
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 export interface TaskResource {
@@ -9,7 +9,8 @@ export interface TaskResource {
 };
 
 interface TaskSliceState {
-  tasks: Task[]
+  tasks: Task[],
+  selected: Task | null
 };
 
 const initialState: TaskSliceState = {
@@ -36,7 +37,8 @@ const initialState: TaskSliceState = {
         isComplete: false
       },
     }
-  ] 
+  ],
+  selected: null
 };
 
 export const tasksSlice = createSlice({
@@ -61,11 +63,16 @@ export const tasksSlice = createSlice({
     },
     removeTask: (state, actions: PayloadAction<Task>) => {
       state.tasks = state.tasks.filter(({ resource }) => resource.ObjectID != actions.payload.resource.ObjectID);
+    },
+    setSelected: (state, actions: PayloadAction<Task>) => {
+      state.selected = actions.payload;
+      console.log(actions.payload);
     }
   },
 });
 
-export const { createTask, updateTask, removeTask } = tasksSlice.actions;
+export const { createTask, updateTask, removeTask, setSelected } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks.tasks;
+export const selectedTask = (state: RootState) => state.tasks.selected;
 export default tasksSlice.reducer;
