@@ -14,9 +14,9 @@ export default function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path='/home' element={<Home />} />
-          <Route path='/calendar' element={<Scheduler height={700} />} />
+          <Route path='/calendar' element={<Scheduler />} />
           <Route path='/projects' element={<Projects />} />
-          <Route path='/focus' element={<Focus />} />
+          {/* <Route path='/focus' element={<Focus />} /> */}
         </Route>
         <Route path='/' element={<Landing />} />
       </Routes>
