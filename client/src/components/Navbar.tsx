@@ -1,17 +1,17 @@
 /* This example requires Tailwind CSS v2.0+ */
-import Avatar from './Avatar'
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { ImageDescriptorProps } from '../vite-env'
-import { Link, useLocation } from 'react-router-dom'
+import Avatar from './Avatar';
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ImageDescriptorProps } from '../vite-env';
+import { Link, useLocation } from 'react-router-dom';
 
 const navigation = [
   { name: 'Home', to: 'home' },
   { name: 'Calendar', to: 'calendar' },  
   { name: 'Projects', to: 'projects' },
   { name: 'Focus', to: 'focus' }
-]
+];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -126,5 +126,5 @@ export default function Navbar({...props}) {
         </>
       )}
     </Disclosure>
-  )
+  );
 }

@@ -2,11 +2,11 @@ import { useMemo, useCallback } from "react";
 import {
   Calendar as BigCalendar,
   dateFnsLocalizer,
-  Event as Task,
   SlotInfo,
 } from "react-big-calendar";
 import TaskList from "../features/tasks/TaskList";
 import currentTask from "../features/tasks/selectedTask";
+import { Task } from "../vite-env";
 import {
   createTask,
   removeTask,
@@ -67,9 +67,6 @@ export default function Calendar(props: any) {
     []
   );
   // calendar event handlers
-  const deleteEvent = (task: Task) => {
-    dispatch(removeTask(task));
-  };
   const handleSelectSlot = useCallback(({ start }: SlotInfo) => {
     const end = addHours(start, 1);
     const title = String(window.prompt("New Task name"));
