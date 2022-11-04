@@ -1,14 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
-import { ReactNode } from "react";
+import { AppState, Auth0Provider } from "@auth0/auth0-react";
+import { PropsWithChildren, ReactNode } from "react";
+import process from "process";
 
-export default function Auth0ProviderWithNavigate(children: any) {
+type Auth0ProviderWithConfigProps = {
+    children: ReactNode
+}
+
+export default function Auth0ProviderWithNavigate({
+    children
+} : PropsWithChildren<Auth0ProviderWithConfigProps>) : JSX.Element | null {
+
     const domain = String(process.env.FOCALAPP_AUTH0_DOMAIN);
     const clientId = String(process.env.FOCALAPP_AUTH0_CLIENT_ID);
 
     const navigate = useNavigate();
 
-    const onRedirectCallback = (appState: any) => {
+    const onRedirectCallback = (appState?: AppState) => {
         navigate(appState?.returnTo || window.location.pathname)
     }
 

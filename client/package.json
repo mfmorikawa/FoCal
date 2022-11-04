@@ -13,9 +13,10 @@
     "@headlessui/react": "^1.7.1",
     "@heroicons/react": "^2.0.11",
     "@reduxjs/toolkit": "^1.8.5",
-    "@tailwindcss/forms": "^0.5.3",
     "date-fns": "^2.29.3",
+    "process": "^0.11.10",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-big-calendar": "^1.5.0",
     "react-calendar": "^3.8.0",
     "react-dom": "^18.2.0",
@@ -23,8 +24,10 @@
     "react-router-dom": "^6.4.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.17",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-big-calendar": "^0.38.1",
     "@types/react-calendar": "^3.5.2",
     "@types/react-dom": "^18.0.6",

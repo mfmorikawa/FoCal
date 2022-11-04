@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Projects from './pages/Projects';
 import PrivateRoutes
- from './lib/PrivateRoute';
+ from './Auth/PrivateRoute';
 import Focus from './pages/Focus';
 
 export default function App() {
