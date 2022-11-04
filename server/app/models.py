@@ -10,12 +10,8 @@ from . import db
 class User(db.Model):
     __tablename__ = "user"
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
-    email = db.Column(db.String, unique=True)
-    #? Need to know how to integrate with auth0 or whatever we go with
-    #! Need to make sure to implement hashing
-    password = db.Column(db.String)
+    userID = db.Column(db.Integer, primary_key=True)
+    auth0ID = db.Column(db.String)
     join_date = db.Column(
         db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
     )
@@ -26,9 +22,9 @@ class User(db.Model):
 class Project(db.Model):
     __tablename__ = "project"
 
-    id = db.Column(db.Integer, primary_key=True)
+    projectID = db.Column(db.Integer, primary_key=True)
     objectID = db.Column(UUIDType(binary=False), default=uuid.uuid4)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
     creation_date = db.Column(
@@ -42,17 +38,15 @@ class Project(db.Model):
 
 class ImportantDates(db.Model):
     __tablename__ = "important_date"
-    id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    dateID = db.Column(db.Integer, primary_key=True)
+    projectID = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
     title = db.Column(db.String)
     date = db.Column(db.DateTime)
-    
-
 
 class Task(db.Model):
     __tablename__ = "task"
-    id = db.Column(db.Integer, primary_key=True)
-    projectID = db.Column(db.Integer, db.ForeignKey("project.id"))
+    taskID = db.Column(db.Integer, primary_key=True)
+    projectID = db.Column(UUIDType(binary=False), db.ForeignKey("project.objectID"))
     objectID = db.Column(UUIDType(binary=False), default=uuid.uuid4)
     title = db.Column(db.String, nullable=False)
     start = db.Column(db.DateTime)

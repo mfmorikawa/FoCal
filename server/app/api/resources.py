@@ -1,11 +1,12 @@
 from datetime import datetime
 from time import strftime
 from flask import request
-from flask_restful import Resource
 from marshmallow import ValidationError
 from app import db
 from ..models import Project, Task, TasksSchema
 from . import api
+from flask_restful import Resource
+from .auth import require_auth
 
 
 
@@ -80,11 +81,14 @@ tasks_schema = TasksSchema()
 
 @api.resource( "/tasks", endpoint="tasks")
 class TaskListAPI(Resource):
+
+    @require_auth(None)
     def get(self):
         tasks = Task.query.all()
         result = tasks_schema.dump(tasks, many=True)
         return {"tasks": result}
 
+    @require_auth(None)
     def post(self):
         json_data = request.get_json()
         if not json_data:
@@ -106,6 +110,7 @@ class TaskListAPI(Resource):
 
 @api.resource("/tasks/<uuid:task_id>", endpoint="task")
 class TaskAPI(Resource):
+    @require_auth(None)
     def get(self, task_id):
 
         task = Task.query.filter(Task.objectID == task_id).first_or_404()
@@ -113,6 +118,7 @@ class TaskAPI(Resource):
         result = tasks_schema.dump(task)
         return {"task": result}, 200
 
+    @require_auth(None)
     def put(self, task_id):
         json_data = request.get_json()
         if not json_data:
@@ -140,6 +146,7 @@ class TaskAPI(Resource):
 
         return {"message": "Task updated.", "task": result}, 200
 
+    @require_auth(None)
     def delete(self, task_id):
         print(task_id)
         task = Task.query.filter(Task.objectID==task_id).first_or_404()
