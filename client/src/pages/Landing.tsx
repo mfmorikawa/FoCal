@@ -35,7 +35,7 @@ export default function Landing() {
         <img
           className="mt-7 h-full w-full sm:h-72 md:h-96 lg:h-full lg:w-full"
           src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
-          alt=""
+          alt="idk_lol"
         />
     </>
   );

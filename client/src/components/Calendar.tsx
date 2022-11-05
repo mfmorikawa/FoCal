@@ -48,6 +48,7 @@ const CalendarComponent = withDragAndDrop(BigCalendar);
 /*
   Calendar Container Component
   TODO: Add information, create, and delete modals (or combine into one?)
+  TODO: Type the props
 */
 export default function Calendar(props: any) {
   // props & state constants

@@ -1,12 +1,10 @@
 /// <reference types="vite/client" />
-import { Event } from "react-big-calendar";
+import { Event, View } from "react-big-calendar";
 
 export type ImageDescriptorProps = {
     url: string;
     alt_text: string;
 }
-
-export type Task = Event;
 
 export type TaskResource = {
   ObjectID: string | undefined;
@@ -14,7 +12,17 @@ export type TaskResource = {
   isComplete: boolean;
 };
 
+export interface Task extends Event {
+  resource: TaskResource
+};
+
 export type TaskSliceState = {
   tasks: Task[];
   selected?: Task;
 };
+
+// Prop Typyings
+export interface SchedulerProps extends ReactProps {
+  height: number,
+  defaultView: View
+}
