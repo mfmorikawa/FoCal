@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../app/hooks";
 import { selectedTask } from "./tasksSlice";
-import { Event as Task } from "react-big-calendar";
+import { Task } from "../../vite-env";
 
 export default function currentTask() {
     const task: Task | undefined = useAppSelector(selectedTask);

@@ -13,7 +13,7 @@ export type TaskResource = {
 };
 
 export interface Task extends Event {
-  resource: TaskResource
+  resource?: TaskResource
 };
 
 export type TaskSliceState = {

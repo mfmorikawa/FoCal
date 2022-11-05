@@ -22,9 +22,9 @@ export default function Scheduler() {
   return (
     <>
       <div className="min-h-full grid pt-2 place-items-end">
-        <button type="button" className="btn-blue" onClick={ (e) => {
+        <button type="button" className="btn-blue" onClick={(e) => {
           e.preventDefault();
-          handleAddTask 
+          handleAddTask(); 
         }}>
           {"Add Task"}
         </button>

@@ -1,7 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
-  const { loginWithRedirect } = useAuth0();  
+  // const { loginWithRedirect } = useAuth0();  
   return (
     <>
       <main className="mt-10 mx-auto mb-10 max-w-7xl px-4 sm:mb-12 sm:px-6 md:mb-16 lg:mb-20 lg:px-8 xl:mb-28">
@@ -23,12 +24,14 @@ export default function Landing() {
               customize focus settings to maximize productivity!
             </p>
             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-              <button 
-                className="rounded-md shadow flex items-center justify-center border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
-                onClick={() => loginWithRedirect()}
-              >
-                  Get Started
-              </button>
+              <Link to="/home"> 
+                <button 
+                  className="rounded-md shadow flex items-center justify-center border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
+                  // onClick={() => loginWithRedirect()}
+                >
+                    Get Started
+                </button>
+              </Link>
             </div>
           </div>
         </main>
