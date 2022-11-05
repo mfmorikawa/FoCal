@@ -7,8 +7,8 @@ export type ImageDescriptorProps = {
 }
 
 export type TaskResource = {
-  ObjectID: string | undefined;
-  projectID: string | undefined;
+  ObjectID?: string;
+  projectID?: string;
   isComplete: boolean;
 };
 
