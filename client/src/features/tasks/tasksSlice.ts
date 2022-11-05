@@ -43,7 +43,7 @@ export const tasksSlice = createSlice({
     ) => {
       const { cur, start, end } = actions.payload;
       const index = state.tasks.findIndex(
-        (task: Task) => task.resource.ObjectID == cur.resource.ObjectID
+        (task: Task) => task.resource && cur.resource && task.resource.ObjectID == cur.resource.ObjectID
       );
       const updatedEvent = {
         ...cur,
@@ -56,7 +56,7 @@ export const tasksSlice = createSlice({
     },
     removeTask: (state, actions: PayloadAction<Task>) => {
       state.tasks = state.tasks.filter(
-        ({ resource }) => resource.ObjectID != actions.payload.resource.ObjectID
+        ({ resource }) => resource && actions.payload.resource && resource.ObjectID != actions.payload.resource.ObjectID
       );
     },
     setSelected: (state, actions: PayloadAction<Task>) => {
