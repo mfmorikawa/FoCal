@@ -1,16 +1,15 @@
 import json
 from urllib.request import urlopen
 from dotenv import load_dotenv
-from os import environ
+from os import getenv
 from authlib.oauth2.rfc7523 import JWTBearerTokenValidator
 from authlib.jose.rfc7517.jwk import JsonWebKey
 from authlib.integrations.flask_oauth2 import ResourceProtector
-from flask_restful import Resource
 
 # Load environment variables from file
 load_dotenv("../../.env")
-AUTH0_DOMAIN = environ["AUTH0_DOMAIN"]
-AUTH0_AUDIENCE = environ["AUTH0_AUDIENCE"]
+AUTH0_DOMAIN = getenv("AUTH0_DOMAIN")
+AUTH0_AUDIENCE = getenv("AUTH0_AUDIENCE")
 
 
 # From the auth0 quickstart
@@ -38,5 +37,3 @@ validator = Auth0JWTBearerTokenValidator(
 )
 require_auth.register_token_validator(validator)
 
-class ProtectedResource(Resource):
-    method_decorators = [require_auth]
