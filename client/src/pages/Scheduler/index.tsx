@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { addHours } from "date-fns";
 import { useCallback } from "react";
 import { View, Views } from "react-big-calendar";
@@ -6,7 +8,7 @@ import Calendar from "../../components/Calendar";
 import { createTask } from "../../features/tasks/tasksSlice";
 
 export default function Scheduler() {
-  const height = 700;
+  const height = 750;
   const defaultView: View = Views.WEEK;
   const dispatch = useAppDispatch();
   const handleAddTask = useCallback(
@@ -21,12 +23,13 @@ export default function Scheduler() {
   );
   return (
     <>
-      <div className="min-h-full grid pt-2 place-items-end">
+      <div className="h-full place-items-end"> 
         <button type="button" className="btn-blue" onClick={(e) => {
           e.preventDefault();
           handleAddTask(); 
         }}>
-          {"Add Task"}
+          {"Ass Task\n"}
+         <FontAwesomeIcon icon={faCalendarPlus} /> 
         </button>
         <main className="calendar-container">
           <Calendar 
@@ -34,6 +37,7 @@ export default function Scheduler() {
             defaultView={defaultView} 
           />
         </main>
+        
       </div>
     </>
   );

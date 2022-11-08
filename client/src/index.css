@@ -15,24 +15,21 @@
 /*|||-----|\\\V///| Calendar Page Styles |\\\V///|-----|||*/
 /* Add-Task-Button */
 .btn-blue {
-    @apply fixed inset-y-24 justify-end z-10 mr-4
-    rounded-md bg-blue-800 h-10 px-4 py-2 font-bold text-slate-50
-    md:mr-8
-    lg:h-12 lg:w-1/6 lg:mr-20
-    xl:mr-28
+    @apply fixed bottom-10 right-10 justify-end z-10
+    rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white   
     hover:opacity-70
 }
 
 /* Calendar-Container */
 .calendar-container {
-    @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center
+    @apply z-0 w-full min-h-full justify-center
 }
 
 
 /*|||-----|\\\V///| Projects Page Styles |\\\V///|-----|||*/
-projects-container {
+.projects-container {
     @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center grid col-span-3
 }
-project_column {
+.project_column {
     @apply rounded-md w-1/3 h-full mx-1 my-2 bg-slate-100
 }
