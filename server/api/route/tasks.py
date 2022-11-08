@@ -5,9 +5,10 @@ from time import strftime
 from flask import request
 from marshmallow import ValidationError
 from api import db
-from services.auth import require_auth
+from api.services.guards import authorization_guard
 from api.model.task import Task
 from api.model.project import Project
+from flask import g
 
 task_api = Blueprint("task_api", __name__)
 
@@ -15,13 +16,16 @@ tasks_schema = TasksSchema()
 
 
 @task_api.get("/tasks", endpoint = "getTaskList")
+@authorization_guard
 def getTaskList():
+    userID = g.access_token["sub"]
     tasks = Task.query.all()
     result = tasks_schema.dump(tasks, many=True)
     return {"tasks": result}
 
 
 @task_api.post("/tasks", endpoint = "createTask")
+@authorization_guard
 def createTask():
 
     json_data = request.get_json()
@@ -47,7 +51,7 @@ def createTask():
 
 
 @task_api.get("tasks/<uuid:task_id>", endpoint = "getTask")
-@require_auth(None)
+@authorization_guard
 def getTask(task_id):
     task = Task.query.filter(Task.objectID == task_id).first_or_404()
     task["projectID"] = Project.get(task["projectID"])
@@ -55,7 +59,7 @@ def getTask(task_id):
     return{"task":result}, 200
 
 @task_api.put("tasks/<uuid:task_id>", endpoint = "editTask")
-@require_auth(None)
+@authorization_guard
 def editTask(task_id):
     json_data = request.get_json()
     if not json_data:
@@ -84,7 +88,7 @@ def editTask(task_id):
     return {"message": "Task updated.", "task": result}, 200   
 
 @task_api.delete("tasks/<uuid:task_id>")
-@require_auth(None)
+@authorization_guard
 def deleteTask(task_id):
     task = Task.query.filter(Task.objectID == task_id).first_or_404()
 
