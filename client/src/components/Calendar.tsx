@@ -27,6 +27,7 @@ import startOfHour from "date-fns/startOfHour";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useAppDispatch } from "../app/hooks";
+import { nanoid } from "@reduxjs/toolkit";
 /* 
   constructs necessary for calendar and timekeeping
 */
@@ -77,6 +78,8 @@ export default function Calendar(props: any) {
         start,
         end,
         resource: {
+          ObjectID: nanoid(8),
+          projectID: "0000",
           isComplete: false,
         },
         allDay: false,
@@ -114,10 +117,11 @@ export default function Calendar(props: any) {
       onSelectEvent={handleSelectEvent}
       selectable
       resizable
-      style={{ height: height, margin: 50 }}
+      style={{ height: height, margin: 20 }}
       step={5}
       timeslots={12}
       defaultDate={new Date(2022, 9, 26)}
+      popup={true}
     />
   );
 }

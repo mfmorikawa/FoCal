@@ -15,14 +15,14 @@
 /*|||-----|\\\V///| Calendar Page Styles |\\\V///|-----|||*/
 /* Add-Task-Button */
 .btn-blue {
-    @apply fixed bottom-10 right-10 justify-end z-10
+    @apply fixed top-20 right-10 justify-end z-10
     rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white   
     hover:opacity-70
 }
 
 /* Calendar-Container */
 .calendar-container {
-    @apply z-0 w-full min-h-full justify-center
+    @apply z-0 w-full min-h-full justify-center bg-white pb-4 shadow-lg
 }
 
 

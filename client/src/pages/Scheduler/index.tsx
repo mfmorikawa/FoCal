@@ -23,15 +23,19 @@ export default function Scheduler() {
   );
   return (
     <>
-      <div className="h-full place-items-end"> 
-        <button type="button" className="btn-blue" onClick={(e) => {
-          e.preventDefault();
-          handleAddTask(); 
-        }}>
-          {"Ass Task\n"}
-         <FontAwesomeIcon icon={faCalendarPlus} /> 
-        </button>
-        <main className="calendar-container">
+      <div className="h-full"> 
+        <div className="p-4 h-20 shadow-lg rounded-lg">
+          <h1 className="text-4xl p-2 text-slate-400 ">Task Scheduler</h1>
+          <button type="button" className="btn-blue" onClick={(e) => {
+            e.preventDefault();
+            handleAddTask(); 
+          }}>
+            {"Ass Task\n"}
+          <FontAwesomeIcon icon={faCalendarPlus} /> 
+          </button>
+       </div>
+       
+       <main className="calendar-container">
           <Calendar 
             height={height}
             defaultView={defaultView} 

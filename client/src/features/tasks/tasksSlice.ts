@@ -1,5 +1,5 @@
 import { Task, TaskResource, TaskSliceState } from "../../vite-env";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 const initialState: TaskSliceState = {
@@ -10,8 +10,8 @@ const initialState: TaskSliceState = {
       end: new Date(2022, 9, 29, 19),
       allDay: false,
       resource: {
-        ObjectID: "ABCD1234",
-        projectID: "123",
+        ObjectID: nanoid(),
+        projectID: "0000",
         isComplete: false,
       },
     },
@@ -21,8 +21,8 @@ const initialState: TaskSliceState = {
       end: new Date(2022, 9, 31, 16, 50),
       allDay: false,
       resource: {
-        ObjectID: "BCDE2345",
-        projectID: undefined,
+        ObjectID: nanoid(),
+        projectID: "0000",
         isComplete: false,
       },
     },
