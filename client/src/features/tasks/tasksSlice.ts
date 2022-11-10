@@ -35,6 +35,7 @@ export const tasksSlice = createSlice({
   reducers: {
     createTask: (state, actions: PayloadAction<Task>) => {
       const newTask: Task = actions.payload;
+      console.log("fires");
       state.tasks.push(newTask);
     },
     updateTask: (
@@ -62,7 +63,7 @@ export const tasksSlice = createSlice({
     setSelected: (state, actions: PayloadAction<Task>) => {
       state.selected = actions.payload;
       console.log(actions.payload);
-    },
+    }  
   },
 });
 

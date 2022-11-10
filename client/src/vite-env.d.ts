@@ -2,9 +2,9 @@
 import { Event, View } from "react-big-calendar";
 
 export type ImageDescriptorProps = {
-    url: string;
-    alt_text: string;
-}
+  url: string;
+  alt_text: string;
+};
 
 export type TaskResource = {
   ObjectID?: string;
@@ -13,8 +13,8 @@ export type TaskResource = {
 };
 
 export interface Task extends Event {
-  resource?: TaskResource
-};
+  resource?: TaskResource;
+}
 
 export type TaskSliceState = {
   tasks: Task[];
@@ -23,6 +23,6 @@ export type TaskSliceState = {
 
 // Prop Typyings
 export interface SchedulerProps extends ReactProps {
-  height: number,
-  defaultView: View
+  height: number;
+  defaultView: View;
 }

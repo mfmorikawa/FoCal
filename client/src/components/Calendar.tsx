@@ -120,7 +120,7 @@ export default function Calendar(props: any) {
       style={{ height: height, margin: 20 }}
       step={5}
       timeslots={12}
-      defaultDate={new Date(2022, 9, 26)}
+      defaultDate={new Date(2022, 10, 10)}
       popup={true}
     />
   );
