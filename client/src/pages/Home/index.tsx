@@ -7,10 +7,13 @@ export default function Home() {
   const defaultView: View = Views.DAY;
   return (
     <>
-      <div>
+      <div className="h-screen grid col-span-2 pt-2 bg-indigo-100">
         <section className="sm:w-full md:w-1/2 sm:h-1/3 md:h-1/2">
-          <div className="calendar-container">
-            <Calendar height={height} defaultView={defaultView} />
+          <div className="mx-2 pt-2 calendar-container">
+          <Calendar 
+            height={height}
+            defaultView={defaultView}
+          />
           </div>
         </section>
       </div>
