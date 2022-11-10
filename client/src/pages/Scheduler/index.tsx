@@ -20,11 +20,11 @@ export default function Scheduler() {
   const [endTime, setEndTime] = useState<string>("");
   const [showStart, setShowStart] = useState(true);
   const [showEnd, setShowEnd] = useState(false);
-  const [title, setTitle] = useState<string|undefined>()
+  const [title, setTitle] = useState<string | undefined>();
   const startDateInput = useRef(null);
   const endDateInput = useRef(null);
   const [creatOpen, setCreateOpen] = useState(false);
-  const [formComplete, setFormComplete] = useState(false); 
+  const [formComplete, setFormComplete] = useState(false);
   // const result: string = formatISO(startDate || new Date());
 
   useEffect(() => {
@@ -37,16 +37,16 @@ export default function Scheduler() {
     const sMinutes = Number(sTime[1]);
     const sHours = Number(sTime[0]);
     start.setHours(sHours, sMinutes);
-    
+
     const eTime: string[] = endTime.split(":");
     const eMinutes = Number(eTime[1]);
     const eHours = Number(eTime[0]);
     end.setHours(eHours, eMinutes);
     console.log(startDate, endDate);
     console.log(start, end);
-    
+
     dispatch(createTask({ title, start, end, allDay: false }));
-  }, [endTime]);
+  }, [formComplete]);
   return (
     <>
       <div className="h-full">
@@ -123,12 +123,12 @@ export default function Scheduler() {
                               >
                                 <div className="mb-2 p-4 font-bold">
                                   <label htmlFor="time">Title </label>
-                                  <input 
-                                    className="rounded-md border-blue-500" 
-                                    type="text" 
+                                  <input
+                                    className="rounded-md border-blue-500"
+                                    type="text"
                                     name="title"
                                     required={true}
-                                    onChange={(e)=>{
+                                    onChange={(e) => {
                                       setTitle(e.target.value);
                                     }}
                                   />
@@ -148,20 +148,21 @@ export default function Scheduler() {
                                 />
                                 <div className="mt-96 p-4 font-bold">
                                   <label htmlFor="time">Start Time </label>
-                                  <input 
-                                    className="rounded-md border-blue-500" 
-                                    type="time" 
+                                  <input
+                                    className="rounded-md border-blue-500"
+                                    type="time"
                                     name="time"
                                     required={true}
-                                    onChange={(e)=>{
+                                    onChange={(e) => {
                                       setStartTime(e.target.value);
                                     }}
                                   />
-                                  <button className="mx-5 rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white hover:opacity-70"
+                                  <button
+                                    className="mx-5 rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white hover:opacity-70"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       if (!title) {
-                                        alert('title required');
+                                        alert("title required");
                                         return;
                                       }
                                       setShowStart(false);
@@ -187,31 +188,29 @@ export default function Scheduler() {
                                   id="example-end-date"
                                   label="End Date"
                                   nextRef={startDateInput}
-                                  onChange={({ value }) =>
-                                    setEndDate(value)
-                                  }
+                                  onChange={({ value }) => setEndDate(value)}
                                   rangeSelector="end"
                                   value={endDate}
                                   ref={endDateInput}
                                 />
                                 <div className="mt-96 p-4 font-bold">
                                   <label htmlFor="time">End Time </label>
-                                  <input 
-                                    className="rounded-md border-blue-500" 
+                                  <input
+                                    className="rounded-md border-blue-500"
                                     type="time"
                                     name="time"
                                     required={true}
-                                    onChange={(e)=>{
-                                      setFormComplete(true);
+                                    onChange={(e) => {
                                       setEndTime(e.target.value);
                                     }}
                                   />
-                                  <button 
+                                  <button
                                     className="mx-5 rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white hover:opacity-70"
                                     type="submit"
                                     onClick={(e) => {
                                       setShowEnd(!showEnd);
                                       setCreateOpen(false);
+                                      setFormComplete(true);
                                     }}
                                   >
                                     Submit
