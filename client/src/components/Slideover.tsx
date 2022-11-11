@@ -1,9 +1,9 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Example() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -55,12 +55,17 @@ export default function Example() {
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-lg font-medium text-gray-900">Panel title</Dialog.Title>
+                      <Dialog.Title className="text-lg font-medium text-gray-900">
+                        Panel title
+                      </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       {/* Replace with your content */}
                       <div className="absolute inset-0 px-4 sm:px-6">
-                        <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true" />
+                        <div
+                          className="h-full border-2 border-dashed border-gray-200"
+                          aria-hidden="true"
+                        />
                       </div>
                       {/* /End replace */}
                     </div>
@@ -72,5 +77,5 @@ export default function Example() {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

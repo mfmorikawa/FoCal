@@ -7,29 +7,26 @@
 /*|||-----|\\\V///| Landing Page Styles |\\\V///|-----|||*/
 /* TODO: ADD STYLES FOR LANDING PAGE */
 
-
 /*|||-----|\\\V///| Home Page Styles |\\\V///|-----|||*/
 /* TODO: ADD STYLES FOR HOME PAGE */
-
 
 /*|||-----|\\\V///| Calendar Page Styles |\\\V///|-----|||*/
 /* Add-Task-Button */
 .btn-blue {
-    @apply fixed top-20 right-10 justify-end z-10
+  @apply fixed top-20 right-10 justify-end z-10
     rounded-md bg-blue-800 h-12 px-4 py-2 font-bold text-white   
-    hover:opacity-70
+    hover:opacity-70;
 }
 
 /* Calendar-Container */
 .calendar-container {
-    @apply z-0 w-full min-h-full justify-center bg-white pb-4 shadow-lg
+  @apply z-0 w-full min-h-full justify-center bg-white pb-4 shadow-lg;
 }
-
 
 /*|||-----|\\\V///| Projects Page Styles |\\\V///|-----|||*/
 .projects-container {
-    @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center grid col-span-3
+  @apply z-0 w-full lg:w-11/12 mx-auto bg-white my-2 py-6 shadow-lg justify-center grid col-span-3;
 }
 .project_column {
-    @apply rounded-md w-1/3 h-full mx-1 my-2 bg-slate-100
+  @apply rounded-md w-1/3 h-full mx-1 my-2 bg-slate-100;
 }

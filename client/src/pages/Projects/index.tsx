@@ -1,9 +1,7 @@
-import CategoryFilter from "../../components/CategoryFiler";
-
 export default function Projects() {
-    return (
+  return (
     <>
-     <div>Projects Page Coming soon!</div> 
+      <div>Projects Page Coming soon!</div>
     </>
   );
 }

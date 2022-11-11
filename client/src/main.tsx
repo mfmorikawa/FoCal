@@ -12,10 +12,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   //   clientId="3DU3eOz420Sa9SjpSX0MSwxDo8XtkK8K"
   //   redirectUri="http://localhost:5173/home"
   // >
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
   // </Auth0Provider>
 );
