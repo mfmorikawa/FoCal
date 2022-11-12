@@ -1,6 +1,6 @@
 export default function Input() {
   return (
-    <div>
+    <div className="w-1/3 m-3">
       <label
         htmlFor="price"
         className="block text-sm font-medium text-gray-700"
