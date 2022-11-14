@@ -6,7 +6,7 @@ from sqlalchemy_utils import UUIDType
 class Task(db.Model):
     __tablename__ = "task"
     taskID = db.Column(UUIDType(binary=False), primary_key=True, default=uuid.uuid4)
-    projectID = db.Column(db.Integer, db.ForeignKey("project.projectID"))
+    projectID = db.Column(UUIDType(binary=False), db.ForeignKey("project.projectID"))
     title = db.Column(db.String, nullable=False)
     start = db.Column(db.DateTime)
     end = db.Column(db.DateTime)

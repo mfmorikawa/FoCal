@@ -1,14 +1,10 @@
-from flask import Blueprint
-from datetime import datetime
-from api.schemas.task import TasksSchema
-from time import strftime
-from flask import request
-from marshmallow import ValidationError
 from api import db
-from api.services.guards import authorization_guard
-from api.model.task import Task
 from api.model.project import Project
-from flask import g
+from api.model.task import Task
+from api.schemas.task import TasksSchema
+from api.services.guards import authorization_guard
+from flask import Blueprint, g, request
+from marshmallow import ValidationError
 
 task_api = Blueprint("task_api", __name__)
 
@@ -19,7 +15,7 @@ tasks_schema = TasksSchema()
 @authorization_guard
 def getTaskList():
     userID = g.access_token["sub"]
-    tasks = Task.query.all()
+    tasks = Task.query.join(Project).filter(Project.userID == userID).all()
     result = tasks_schema.dump(tasks, many=True)
     return {"tasks": result}
 
@@ -41,7 +37,7 @@ def createTask():
 
     if data.get("projectID") is None:
         data["projectID"] = (
-            Project.query.filter(Project.name == "No Project").first().objectID
+            Project.query.filter(Project.name == "No Project").first().projectID
         )
     new_task = Task(**data)
     db.session.add(new_task)
@@ -53,7 +49,7 @@ def createTask():
 @task_api.get("tasks/<uuid:task_id>", endpoint = "getTask")
 @authorization_guard
 def getTask(task_id):
-    task = Task.query.filter(Task.objectID == task_id).first_or_404()
+    task = Task.query.filter(Task.taskID == task_id).first_or_404()
     task["projectID"] = Project.get(task["projectID"])
     result = tasks_schema.dump(task)
     return{"task":result}, 200
@@ -71,7 +67,7 @@ def editTask(task_id):
         return err.messages, 422
 
     # Have to use query object to handle case where creation is necessary
-    task = Task.query.filter(Task.objectID == task_id)
+    task = Task.query.filter(Task.taskID == task_id)
 
     # Check if resource with 'task_id' exists
     # TODO: See if I can do this in a slightly cleaner way
@@ -90,9 +86,11 @@ def editTask(task_id):
 @task_api.delete("tasks/<uuid:task_id>")
 @authorization_guard
 def deleteTask(task_id):
-    task = Task.query.filter(Task.objectID == task_id).first_or_404()
-
+    task = Task.query.get(task_id)
+    if task is None:
+        return {"message":"Task does not exist."}, 404
     db.session.delete(task)
     db.session.commit()
+
     return {}, 204
 

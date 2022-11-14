@@ -8,7 +8,7 @@ class Project(db.Model):
     __tablename__ = "project"
 
     projectID = db.Column(UUIDType(binary=False), primary_key=True, default=uuid.uuid4)
-    userID = db.Column(db.Integer, db.ForeignKey("user.userID"), nullable=False)
+    userID = db.Column(db.String, db.ForeignKey("user.userID"), nullable=False)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
     creation_date = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
