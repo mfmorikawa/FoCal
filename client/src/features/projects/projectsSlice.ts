@@ -1,16 +1,7 @@
-import { Task, TaskResource } from "../../vite-env";
+import { Task, TaskResource, Project, ProjectSliceState, ImportantDate } from "../../vite-env";
 import TasksListk from "../tasks/TaskList";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-
-export type Project = {
-  name: string;
-  taskList: Task[];
-};
-
-export type ProjectSliceState = {
-  projects: Project[];
-};
 
 const initialState: ProjectSliceState = {
   projects: [],
