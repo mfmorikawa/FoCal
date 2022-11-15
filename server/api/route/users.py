@@ -20,7 +20,7 @@ user_schema = UsersSchema()
 
 @user_api.post("/users")
 @authorization_guard
-@permissions_guard(admin_users_permissions.write)
+@permissions_guard([admin_users_permissions.write])
 def addUser():
     json_data = request.get_json()
 

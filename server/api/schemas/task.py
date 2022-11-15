@@ -18,7 +18,9 @@ class TasksSchema(Schema):
     @post_load
     def processInputData(self, data: dict, **kwargs):
         """Expand the nested resource field to allow for easy db interaction."""
-        resource = data["resource"]
+        resource = data.get("resource")
+        if resource is None:
+            return data
         data.pop("resource")
         data.update(resource)
         return data
