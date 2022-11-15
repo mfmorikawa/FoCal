@@ -8,8 +8,10 @@ from api.model.project import Project, ImportantDates
 from api.model.task import Task
 from api.model.user import User
 from api.services.auth0_service import auth0_service
-
 from api.route.tasks import task_api
+from api.route.projects import project_api
+from api.route.users import user_api
+
 load_dotenv("../.env")
 AUTH0_DOMAIN = getenv("AUTH0_DOMAIN")
 AUTH0_AUDIENCE = getenv("AUTH0_AUDIENCE")
@@ -30,4 +32,7 @@ def create_app(config_name="default"):
         max_age=86400,
     )
     app.register_blueprint(task_api, url_prefix="/api")
+    app.register_blueprint(project_api, url_prefix="/api")
+    app.register_blueprint(user_api, url_prefix="/api")
+
     return app

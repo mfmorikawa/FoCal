@@ -24,12 +24,12 @@ class TasksSchema(Schema):
         return data
 
     @post_dump(pass_original=True)
-    def processOutputData(self, data, original_data, **kwargs):
+    def processOutputData(self, data, originalTask, **kwargs):
         """Add taskID, projectID, isCompleted attributes of a task to a nested resource object"""
         resource = {
-            "taskID": original_data.taskID,
-            "projectID": original_data.projectID,
-            "isCompleted": original_data.isCompleted,
+            "taskID": originalTask.taskID,
+            "projectID": originalTask.projectID,
+            "isCompleted": originalTask.isCompleted,
         }
 
         data["resource"] = resource

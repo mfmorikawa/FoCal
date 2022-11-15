@@ -17,8 +17,8 @@ invalid_request_error = {
     "message": "Requires authentication"
 }
 
-admin_messages_permissions = SimpleNamespace(
-    read="read:admin-messages"
+admin_users_permissions = SimpleNamespace(
+    write="write:admin-users"
 )
 
 
