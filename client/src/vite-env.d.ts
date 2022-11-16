@@ -1,11 +1,7 @@
 /// <reference types="vite/client" />
 import { Event, View } from "react-big-calendar";
 
-export type ImageDescriptorProps = {
-  url: string;
-  alt_text: string;
-};
-
+// taskSlice types
 export type TaskResource = {
   ObjectID?: string;
   projectID?: string;
@@ -21,12 +17,18 @@ export type TaskSliceState = {
   selected?: Task;
 };
 
-// Prop Typyings
+// Prop types
 export interface SchedulerProps extends ReactProps {
   height: number;
   defaultView: View;
 }
 
+export type ImageDescriptorProps = {
+  url: string;
+  alt_text: string;
+};
+
+// ProjectSlice types
 export type ImportantDate = {
   name: string;
   dateId: string;
