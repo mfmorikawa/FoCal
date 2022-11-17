@@ -1,5 +1,12 @@
 import React from "react";
-import { Droppable, Draggable, DroppableProvided } from "react-beautiful-dnd";
+import {
+  Droppable,
+  Draggable,
+  DroppableProvided,
+  DropResult,
+  DragDropContext,
+  DraggableLocation,
+} from "react-beautiful-dnd";
 
 interface Props {
   colors: string[];
@@ -9,37 +16,24 @@ interface Props {
   isCombineEnabled?: boolean;
 }
 
-export const ColorList: React.FC<Props> = ({ colors, listId, listType }) => {
+export const ProjectTaskList: React.FC<Props> = ({
+  colors,
+  listId,
+  listType,
+}) => {
   return (
-    <Droppable
-      droppableId={listId}
-      type={listType}
-      direction="horizontal"
-      isCombineEnabled={false}
+    <DragDropContext
+      onDragEnd={({ source, destination }: DropResult) => {
+        if (!destination) {
+          return;
+        }
+      }}
     >
-      {(dropProvided) => (
-        <div {...dropProvided.droppableProps}>
-          <div>
-            <div>
-              <div style={{ display: "flex" }} ref={dropProvided.innerRef}>
-                {colors.map((color, index) => (
-                  <Draggable key={color} draggableId={color} index={index}>
-                    {(dragProvided) => (
-                      <div
-                        {...dragProvided.dragHandleProps}
-                        {...dragProvided.draggableProps}
-                        ref={dragProvided.innerRef}
-                      >
-                        <div style={{ backgroundColor: color }}>{color}</div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-              </div>
-            </div>
-          </div>
+      <div className="bg-blue-500 p-2 h-screen flex justify-center place-items-start">
+        <div className="flex justify-start place-items-start bg-slate-400 p-2 max-w-2xl overflow-auto">
+          <div className="flex-col m-0"></div>
         </div>
-      )}
-    </Droppable>
+      </div>
+    </DragDropContext>
   );
 };
