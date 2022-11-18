@@ -1,41 +1,59 @@
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import { reorderColors } from "./reorder";
-import { Loading } from "../../components/Loading";
-import { ColorList } from "./AuthorList";
-
-export type ColorMap = { [key: string]: string[] }
+import TasksList from "../../features/tasks/TaskList";
+import { Project, ImportantDate } from "../../vite-env";
 
 export default function Projects() {
-  const [colorMap, setColors] = useState<ColorMap>({
-    a: ["blue", "red"],
-    b: ["pink"],
-    c: ["green"]
-  });
+  const Tasks = TasksList();
+  const progress: [number, number] = [0,Tasks.length];
+  const project: Project = {
+    projectID: nanoid(8),
+    name: "No Projects",
+    taskList: Tasks,
+    importantDates: new Array<ImportantDate>,
+    deadline: "none"
+  };
+
+  function getCompleted(): number {
+    let totalCompleted = 0;
+    for (const task of Tasks) {
+      // @ts-ignore
+      if (task.resource.isComplete)
+        totalCompleted++;
+    }    
+    return totalCompleted;
+  }
+  const [taskProgress, setTaskProgress] = useState(0);
+  const [showMilestones, setShowMilestones] = useState(false);
+  const [showTasks, setShowTasks] = useState(false);
+
   return (
-    <DragDropContext onDragEnd={({destination, source}) => {
-      if (!destination) {
-        return;
-      }
-      setColors(
-        reorderColors(
-          colorMap,
-          source,
-          destination
-        )
-      );
-    }}>
-      <div>
-        {Object.entries(colorMap).map(([k,v]) => (
-          <ColorList
-            internalScroll
-            key={k}
-            listId={k}
-            listType="CARD"
-            colors={v}
-          />
-        ))}
+    <div className="p-4 grid grid-cols-3 h-fit">
+      <div className="p-4 rounded-md text-white bg-green-500 h-36 shadow-2xl">
+        <h2 className="font-bold text-center mb-2">{project.name}</h2>
+        <section className="grid grid-cols-3">
+          <h3>Progress:</h3>
+          <div className="col-span-2 text-right px-6">{taskProgress}</div>
+        </section>
+        <section className="grid grid-cols-3">
+          <h3 className="col-span-2">
+            Milestones: 
+          </h3>
+          <button className="text-right px-6">
+            <FontAwesomeIcon icon={faAngleDown} />
+          </button>
+        </section>
+        <section className="grid grid-cols-3">
+        <h3 className="col-span-2">
+            Tasks: 
+          </h3>
+          <button className="text-right px-6">
+            <FontAwesomeIcon icon={faAngleDown} />
+          </button>
+        </section>
       </div>
-    </DragDropContext>
+    </div>
   );
 }
