@@ -36,9 +36,11 @@ def createTask():
         return err.messages, 422
 
     if data.get("projectID") is None:
-        data["projectID"] = (
-            Project.query.filter(Project.name == "No Project").first().projectID
-        )
+        defaultProj = Project.query.filter(Project.name =="No Project").first()
+        if defaultProj is None:
+            return {"message":"Database error"}, 400
+        data["projectID"] = defaultProj.projectID
+
     new_task = Task(**data)
     db.session.add(new_task)
     db.session.commit()
