@@ -80,7 +80,8 @@ def permissions_guard(required_permissions=None):
                     "message": "Internal Server Error"
                 })
 
-            token_permissions = access_token.get("scope")
+            token_permissions = access_token.get("scope").split()
+            
 
             if not token_permissions:
                 json_abort(403, {
@@ -92,7 +93,7 @@ def permissions_guard(required_permissions=None):
 
             if not required_permissions_set.issubset(token_permissions_set):
                 json_abort(403, {
-                    "message": "Permission denied"
+                    "message": f"Permission denied"
                 })
 
             return function()
