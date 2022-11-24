@@ -80,7 +80,7 @@ def permissions_guard(required_permissions=None):
                     "message": "Internal Server Error"
                 })
 
-            token_permissions = access_token.get("permissions")
+            token_permissions = access_token.get("scope")
 
             if not token_permissions:
                 json_abort(403, {
