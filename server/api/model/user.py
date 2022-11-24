@@ -9,4 +9,4 @@ class User(db.Model):
         db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
     )
 
-    projects = db.relationship("Project", backref="user")
+    projects = db.relationship("Project",cascade="all, delete", backref="user")

@@ -65,7 +65,7 @@ def authorization_guard(function):
 def permissions_guard(required_permissions=None):
     def decorator(function):
         @wraps(function)
-        def wrapper():
+        def wrapper(*args, **kwargs):
             access_token = g.get("access_token")
 
             if not access_token:
@@ -73,7 +73,7 @@ def permissions_guard(required_permissions=None):
                 return
 
             if required_permissions is None:
-                return function()
+                return function(*args, **kwargs)
 
             if not isinstance(required_permissions, list):
                 json_abort(500, {
@@ -96,7 +96,7 @@ def permissions_guard(required_permissions=None):
                     "message": f"Permission denied"
                 })
 
-            return function()
+            return function(*args, **kwargs)
 
         return wrapper
 

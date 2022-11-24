@@ -41,3 +41,16 @@ def addUser():
     except IntegrityError as e:
         return {"message": "User already exists."}, 422
     return {"message": "User created"}, 201
+
+
+@user_api.delete("/users/<string:user_id>")
+@authorization_guard
+@permissions_guard([admin_users_permissions.write])
+def deleteUser(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return {"message":"Task does not exist."}, 404
+    db.session.delete(user)
+    db.session.commit()
+
+    return {}, 204

@@ -14,8 +14,8 @@ class Project(db.Model):
     creation_date = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
     deadline = db.Column(db.DateTime)
 
-    tasks = db.relationship("Task", backref="project")
-    important_dates = db.relationship("ImportantDates", backref="project")
+    tasks = db.relationship("Task",cascade="all, delete", backref="project")
+    important_dates = db.relationship("ImportantDates",cascade="all, delete", backref="project")
 
 
 class ImportantDates(db.Model):
