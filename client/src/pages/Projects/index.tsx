@@ -7,7 +7,6 @@ import { Project, ImportantDate } from "../../vite-env";
 
 export default function Projects() {
   const Tasks = TasksList();
-  const progress: [number, number] = [0,Tasks.length];
   const project: Project = {
     projectID: nanoid(8),
     name: "No Projects",
@@ -16,16 +15,17 @@ export default function Projects() {
     deadline: "none"
   };
 
-  function getCompleted(): number {
+  function calculateCompleted(): number {
     let totalCompleted = 0;
     for (const task of Tasks) {
-      // @ts-ignore
-      if (task.resource.isComplete)
+      if (task.resource && task.resource.isComplete)
         totalCompleted++;
     }    
     return totalCompleted;
   }
-  const [taskProgress, setTaskProgress] = useState(0);
+  const [taskProgress, setTaskProgress] = useState((): number =>{
+    return calculateCompleted() / Tasks.length;
+  });
   const [showMilestones, setShowMilestones] = useState(false);
   const [showTasks, setShowTasks] = useState(false);
 
