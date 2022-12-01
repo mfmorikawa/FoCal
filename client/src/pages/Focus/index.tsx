@@ -4,9 +4,10 @@ import { Loading } from "../../components/Loading";
 import Progress from "../../components/Progress";
 
 const Focus = () => {
+  let done = 0;
   return (
     <div>
-      <Progress done={70}/>
+      <Progress done={done} />
     </div>
   );
 };
