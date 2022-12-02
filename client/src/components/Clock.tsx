@@ -19,7 +19,7 @@ export default function Clock({ n_minutes }: { n_minutes: number }) {
         }
       } else return;
     }, 1000);
-    startClock();
+  startClock();
   return (
     <div className="grid grid-cols-2 bg-slate-800 bg-gradient-to-r from-black p-2 rounded-md shadow-2xl">
       <div className="col-span-2 text-7xl text-white bg-indigo-400 bg-gradient-to-r from-blue-400 m-2 py-2 px-10 h-24 font-extrabold grid grid-cols-5 rounded-md">
@@ -34,8 +34,8 @@ export default function Clock({ n_minutes }: { n_minutes: number }) {
       <button
         className="flex-row bg-green-600 text-3xl text-white font-bold p-4 rounded-md text-center m-2"
         onClick={() => {
-            setComplete(false);
-            startClock();
+          setComplete(false);
+          startClock();
         }}
       >
         START
