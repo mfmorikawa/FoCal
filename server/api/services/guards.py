@@ -7,19 +7,15 @@ from flask import request, g
 from api.services.auth0_service import auth0_service
 from api.services.utils import json_abort
 
-unauthorized_error = {
-    "message": "Requires authentication"
-}
+unauthorized_error = {"message": "Requires authentication"}
 
 invalid_request_error = {
     "error": "invalid_request",
     "error_description": "Authorization header value must follow this format: Bearer access-token",
-    "message": "Requires authentication"
+    "message": "Requires authentication",
 }
 
-admin_users_permissions = SimpleNamespace(
-    write="write:admin-users"
-)
+admin_users_permissions = SimpleNamespace(write="write:admin-users")
 
 
 def get_bearer_token_from_request():
@@ -76,25 +72,22 @@ def permissions_guard(required_permissions=None):
                 return function(*args, **kwargs)
 
             if not isinstance(required_permissions, list):
-                json_abort(500, {
-                    "message": "Internal Server Error"
-                })
+                json_abort(500, {"message": "Internal Server Error"})
+
+            scope = access_token.get("scope")
+            if scope is None:
+                json_abort(401, unauthorized_error)
 
             token_permissions = access_token.get("scope").split()
-            
 
             if not token_permissions:
-                json_abort(403, {
-                    "message": "Permission denied"
-                })
+                json_abort(403, {"message": "Permission denied"})
 
             required_permissions_set = set(required_permissions)
             token_permissions_set = set(token_permissions)
 
             if not required_permissions_set.issubset(token_permissions_set):
-                json_abort(403, {
-                    "message": f"Permission denied"
-                })
+                json_abort(403, {"message": f"Permission denied"})
 
             return function(*args, **kwargs)
 
