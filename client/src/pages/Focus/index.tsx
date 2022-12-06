@@ -8,8 +8,8 @@ const Focus = () => {
   let done = 0;
   return (
     <div className="grid grid-cols-3 p-2">
-      <Progress done={done} />
-      <Clock n_minutes={1}/>
+      
+      <Clock n_minutes={5}/>
       
     </div>
   );

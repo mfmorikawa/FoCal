@@ -25,7 +25,7 @@ import addHours from "date-fns/addHours";
 import startOfHour from "date-fns/startOfHour";
 // default styles for DnD Calendar
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./calendar.css";
 import { useAppDispatch } from "../app/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 /* 
