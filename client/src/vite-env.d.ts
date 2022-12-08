@@ -28,21 +28,26 @@ export type ImageDescriptorProps = {
   alt_text: string;
 };
 
+export type User = {
+  username: string;
+  password?: string;
+  isLoggedIn: boolean;
+}
+
 // ProjectSlice types
 export type ImportantDate = {
   name: string;
-  dateId: string;
-  projectID: string;
   date: Date | string;
 }
 
 export type Project = {
-  projectID: string;
+  projectID?: string;
   name: string;
   username: string;
-  taskList: Task[];
+  tasks: Task[];
   deadline?: Date | string;
   importantDates: Array<ImportantDate>;
+  progress: number
 };
 
 export type ProjectSliceState = {

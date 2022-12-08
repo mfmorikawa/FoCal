@@ -1,13 +1,50 @@
-import { Task, TaskResource, TaskSliceState } from "../../vite-env";
-import { useGetTasksQuery } from "../api/focalApi";
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { Task, TaskResource, TaskSliceState } from "../../vite-env";  
 import { RootState } from "../../app/store";
-
-const initialState: TaskSliceState = {
-  tasks: useGetTasksQuery().data || []
-};
+import { focalApi } from "../api/focalApi";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialState } from "../api/tasks";
 
 export const tasksSlice = createSlice({
+// focalApi.injectEndpoints({
+  // endpoints: (builder) => ({
+  //   getTasks: builder.query<Task[], void>({
+  //     query: () => "/tasks",
+  //     providesTags: ["Tasks"],
+  //   }),
+  //   getTask: builder.query<Task, void>({
+  //     query: (taskID) => `/tasks/${taskID}`
+  //   }),
+  //   createTask: builder.mutation({
+  //     query: (newTask: Task) => ({
+  //       url: `/tasks`,
+  //       method: "POST",
+  //       body: {
+  //         ...newTask,
+  //         start: newTask.start?.toISOString(),
+  //         end: newTask.end?.toISOString()
+  //       },
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  //   deleteTask: builder.mutation({
+  //     query: (taskID: string) => ({
+  //       url: `/tasks/${taskID}`,
+  //       method: "DELETE"
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  //   updateTask: builder.mutation({
+  //     query: (updatedTask: Task) => ({
+  //       url: `/tasks/${updatedTask.resource?.taskID || ""}`,
+  //       method: "PUT",
+  //       body: {
+  //         ...updatedTask,
+
+  //       }
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  // })
   name: "tasks",
   initialState,
   reducers: {
@@ -56,3 +93,4 @@ export const { createTask, updateTask, removeTask, setSelected } =
 export const selectTasks = (state: RootState) => state.tasks.tasks;
 export const selectedTask = (state: RootState) => state.tasks.selected;
 export default tasksSlice.reducer;
+

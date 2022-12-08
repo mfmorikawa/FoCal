@@ -1,43 +1,28 @@
 import { faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
-import TasksList from "../features/tasks/TaskList";
-import { Project, ImportantDate } from "../vite-env";
+import { Project } from "../vite-env";
 import Progress from "./Progress";
 
-export default function Projects() {
-  const Tasks = TasksList();
-  const project: Project = {
-    projectID: nanoid(8),
-    name: "No Projects",
-    username: "oscisn93",
-    taskList: Tasks,
-    importantDates: new Array<ImportantDate>(),
-    deadline: "none",
-  };
+export default function ProjectContainer({project}: { project: Project}) {
+  const { tasks } = project;
 
   function calculateCompleted(): number {
     let totalCompleted = 1;
-    for (const task of Tasks) {
+    for (const task of tasks) {
       if (task.resource && task.resource.isComplete) totalCompleted++;
     }
     return totalCompleted;
   }
-  
-  const [taskProgress, setTaskProgress] = useState((): number => {
-    return Math.floor((calculateCompleted() / Tasks.length)*100);
-  });
   const [showMilestones, setShowMilestones] = useState(false);
   const [showTasks, setShowTasks] = useState(true);
 
   return (
-    <div className="p-4 grid grid-cols-3 h-fit">
-      <div className="p-4 rounded-md text-white bg-slate-700 shadow-2xl">
+      <div className="p-4 rounded-md text-white bg-slate-700 shadow-2xl m-1">
         <h2 className="font-bold text-center mb-2">{project.name}</h2>
         <section>
           <h3 className="mb-1">Progress</h3>
-          <Progress done={taskProgress} />
+          <Progress done={project.progress} />
         </section>
         <section className="grid grid-cols-3">
           <h3 className="col-span-2">Milestones</h3>
@@ -59,7 +44,7 @@ export default function Projects() {
           </button>
           {showTasks ? (
             <div className="col-span-3 p-2">
-              {Tasks.map((task) => {
+              {tasks.map((task) => {
                 return (
                   <div className="p-2 font-bold mb-1 bg-black rounded-md">
                     {task.title}
@@ -72,6 +57,5 @@ export default function Projects() {
           )}
         </section>
       </div>
-    </div>
   );
 }

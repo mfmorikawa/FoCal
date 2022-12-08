@@ -1,15 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tasksReducer from "../features/tasks/tasksSlice";
-import projectsReducer from "../features/projects/projectsSlice";
-// import  usersReducer from '../features/users/userSlice';
+// import projectsReducer from "../features/projects/projectsSlice";
+import  usersReducer from '../features/user/userSlice';
 import { focalApi } from "../features/api/focalApi";
 
 export const store = configureStore({
   reducer: {
     tasks: tasksReducer,
-    projects: projectsReducer,
-    // users: usersReducer
-    // timers: timersReducer,
+    // projects: projectsReducer,
+    users: usersReducer,
     [focalApi.reducerPath]: focalApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

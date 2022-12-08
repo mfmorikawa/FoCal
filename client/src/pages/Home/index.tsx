@@ -24,24 +24,8 @@ export default function Home() {
           </h5>
         </div>
         <hr />
-        <div className="mt-2 grid grid-cols-2 pt-2">          
+        <div className="mt-2 grid grid-cols-2 pt-2">
         <section className="sm:w-full sm:h-1/3 h-1/2 ">
-            <h5 hidden className="text-2xl text-center font-bold text-indigo-500 block">
-              Your Profile
-            </h5>
-            <div className="rounded-lg mx-2 p-20 calendar-container border-gray-100 border-4 place-items-center">
-              <Avatar url={image.url} alt_text={image.alt_text} />
-            </div>
-          </section>
-          <section className="sm:w-full sm:h-1/3 h-1/2 ">
-            <h5 hidden className="text-2xl text-center font-bold text-indigo-500 block">
-              Start a Timer!
-            </h5>
-            <div className="rounded-lg mx-2 p-10 calendar-container border-gray-100 border-4">
-              <Clock n_minutes={5}/>
-            </div>
-          </section>
-          <section className="sm:w-full sm:h-1/3 h-1/2 ">
             <h5 hidden className="text-2xl text-center text-indigo-500 font-bold block">
               Today's Schedule
             </h5>
@@ -57,7 +41,14 @@ export default function Home() {
               <Projects />
             </div>
           </section>
-
+          <section className="sm:w-full sm:h-1/3 h-1/2 ">
+            <h5 hidden className="text-2xl text-center font-bold text-indigo-500 block">
+              Start a Timer!
+            </h5>
+            <div className="rounded-lg mx-2 p-10 calendar-container border-gray-100 border-4">
+              <Clock n_minutes={5}/>
+            </div>
+          </section>
         </div>
       </div>
     </>

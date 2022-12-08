@@ -1,12 +1,12 @@
-import { Task } from "../../vite-env";
+import { Project, Task } from "../../vite-env";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const focalApi = createApi({
   reducerPath: "focalApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://focalapi.onrender.com/api",
+    baseUrl: "https://focalapi.onrender.com/api/users/test",
   }),
-  tagTypes: ["Tasks", "Projects", "User"],
+  tagTypes: ["Tasks", "Projects"],
   endpoints: (builder) => ({
     getTasks: builder.query<Task[], void>({
       query: () => "/tasks",
@@ -35,15 +35,43 @@ export const focalApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    loginUser: builder.mutation({
-      query: ({username, password}) => ({
-        url: `/users/${username}`,
-        method: 'POST',
-        body: password
+    getProjects: builder.query<Project[], void>({
+      query: () => "/projects",
+      providesTags: ["Projects"],
+    }),
+    createProjects: builder.mutation({
+      query: (newProject: Project) => ({
+        url: `/projects`,
+        method: "POST",
+        body: newProject,
       }),
-      invalidatesTags: ["User"]
-    })
+      invalidatesTags: ["Projects"],
+    }),
+    deleteProject: builder.mutation({
+      query: (projectID: string) => ({
+        url: `/projects/${projectID}`,
+        method: "DELETE"
+      }),
+      invalidatesTags: ["Projects"],
+    }),
+    updateProject: builder.mutation({
+      query: (updatedProject: Project) => ({
+        url: `/projects/${updatedProject.projectID || ""}`,
+        method: "PUT",
+        body: updatedProject
+      }),
+      invalidatesTags: ["Projects"],
+    }),
   }),
 });
 
-export const { useGetTasksQuery, useCreateTaskMutation } = focalApi;
+export const { 
+  useGetTasksQuery,
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useUpdateTaskMutation,
+  useGetProjectsQuery,
+  useUpdateProjectMutation,
+  useCreateProjectsMutation,
+  useDeleteProjectMutation
+} = focalApi;
