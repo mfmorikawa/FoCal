@@ -36,14 +36,14 @@ export const initialState: TaskSliceState = {
       title: "Task 3"
     },
     {
-      end: new Date("2022-13-8 15:00:00"),
+      end: new Date("2022-12-8 15:00:00"),
       allDay: false,
       resource: {
         isComplete: false,
         projectID: "4eec8b8f-572e-4a49-90f8-c6706a1db6d8",
         taskID: "8b325996-c752-4048-9e9b-22bdd46e8037"
       },
-      start: new Date("2022-13-8 17:00:00"),
+      start: new Date("2022-12-8 17:00:00"),
       title: "Presentation"
       }
   ],
