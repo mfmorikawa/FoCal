@@ -5,6 +5,7 @@ class User(db.Model):
     __tablename__ = "user"
 
     userID = db.Column(db.String, primary_key = True)
+    password= db.Column(db.String)
     join_date = db.Column(
         db.DateTime, nullable=False, default=datetime.now(tz=timezone.utc)
     )
