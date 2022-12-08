@@ -14,15 +14,15 @@ class Project(db.Model):
     creation_date = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
     deadline = db.Column(db.DateTime)
 
-    tasks = db.relationship("Task",cascade="all, delete", backref="project")
-    important_dates = db.relationship("ImportantDates",cascade="all, delete", backref="project")
+    tasks = db.relationship("Task", backref="project", cascade="all,delete")
+    importantDates = db.relationship("ImportantDates", backref="project", cascade="all,delete")
 
 
 class ImportantDates(db.Model):
     __tablename__ = "important_date"
     dateID = db.Column(db.Integer, primary_key=True)
     projectID = db.Column(
-        db.Integer, db.ForeignKey("project.projectID"), nullable=False
+        UUIDType(binary=False), db.ForeignKey("project.projectID"), nullable=False
     )
-    title = db.Column(db.String)
+    name = db.Column(db.String)
     date = db.Column(db.DateTime)

@@ -19,8 +19,6 @@ user_schema = UsersSchema()
 
 
 @user_api.post("/users")
-@authorization_guard
-@permissions_guard([admin_users_permissions.write])
 def addUser():
     json_data = request.get_json()
 
@@ -44,8 +42,6 @@ def addUser():
 
 
 @user_api.delete("/users/<string:user_id>")
-@authorization_guard
-@permissions_guard([admin_users_permissions.write])
 def deleteUser(user_id):
     user = User.query.get(user_id)
     if user is None:

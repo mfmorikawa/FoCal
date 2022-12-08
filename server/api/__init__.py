@@ -29,8 +29,8 @@ def create_app(config_name="default"):
         methods=["GET", "POST", "PUT", "DELETE"],
         max_age=86400,
     )
-    app.register_blueprint(task_api, url_prefix="/api")
-    app.register_blueprint(project_api, url_prefix="/api")
+    app.register_blueprint(task_api, url_prefix="/api/users")
+    app.register_blueprint(project_api, url_prefix="/api/users")
     app.register_blueprint(user_api, url_prefix="/api")
 
     return app
