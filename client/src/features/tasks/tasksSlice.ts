@@ -1,32 +1,10 @@
 import { Task, TaskResource, TaskSliceState } from "../../vite-env";
+import { useGetTasksQuery } from "../api/focalApi";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 const initialState: TaskSliceState = {
-  tasks: [
-    {
-      title: "House of Dragons",
-      start: new Date(2022, 9, 29, 18),
-      end: new Date(2022, 9, 29, 19),
-      allDay: false,
-      resource: {
-        ObjectID: nanoid(),
-        projectID: "0000",
-        isComplete: false,
-      },
-    },
-    {
-      title: "Software Engineering",
-      start: new Date(2022, 9, 31, 15),
-      end: new Date(2022, 9, 31, 16, 50),
-      allDay: false,
-      resource: {
-        ObjectID: nanoid(),
-        projectID: "0000",
-        isComplete: false,
-      },
-    },
-  ],
+  tasks: useGetTasksQuery().data || []
 };
 
 export const tasksSlice = createSlice({
@@ -47,7 +25,7 @@ export const tasksSlice = createSlice({
         (task: Task) =>
           task.resource &&
           cur.resource &&
-          task.resource.ObjectID == cur.resource.ObjectID
+          task.resource.taskID == cur.resource.taskID
       );
       const updatedEvent = {
         ...cur,
@@ -63,7 +41,7 @@ export const tasksSlice = createSlice({
         ({ resource }) =>
           resource &&
           actions.payload.resource &&
-          resource.ObjectID != actions.payload.resource.ObjectID
+          resource.taskID != actions.payload.resource.taskID
       );
     },
     setSelected: (state, actions: PayloadAction<Task>) => {
@@ -75,7 +53,6 @@ export const tasksSlice = createSlice({
 
 export const { createTask, updateTask, removeTask, setSelected } =
   tasksSlice.actions;
-
 export const selectTasks = (state: RootState) => state.tasks.tasks;
 export const selectedTask = (state: RootState) => state.tasks.selected;
 export default tasksSlice.reducer;

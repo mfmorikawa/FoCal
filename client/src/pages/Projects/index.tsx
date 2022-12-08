@@ -11,6 +11,7 @@ export default function Projects() {
   const project: Project = {
     projectID: nanoid(8),
     name: "No Projects",
+    username: "oscisn93",
     taskList: Tasks,
     importantDates: new Array<ImportantDate>(),
     deadline: "none",

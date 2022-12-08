@@ -8,9 +8,7 @@ const Focus = () => {
   let done = 0;
   return (
     <div className="grid grid-cols-3 p-2">
-      
       <Clock n_minutes={5}/>
-      
     </div>
   );
 };

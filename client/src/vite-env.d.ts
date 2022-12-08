@@ -3,7 +3,7 @@ import { Event, View } from "react-big-calendar";
 
 // taskSlice types
 export type TaskResource = {
-  ObjectID?: string;
+  taskID?: string;
   projectID?: string;
   isComplete: boolean;
 };
@@ -39,8 +39,9 @@ export type ImportantDate = {
 export type Project = {
   projectID: string;
   name: string;
+  username: string;
   taskList: Task[];
-  deadline: Date | string;
+  deadline?: Date | string;
   importantDates: Array<ImportantDate>;
 };
 
