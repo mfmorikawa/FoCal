@@ -3,7 +3,7 @@ import { Event, View } from "react-big-calendar";
 
 // taskSlice types
 export type TaskResource = {
-  ObjectID?: string;
+  taskID?: string;
   projectID?: string;
   isComplete: boolean;
 };
@@ -28,20 +28,26 @@ export type ImageDescriptorProps = {
   alt_text: string;
 };
 
+export type User = {
+  username: string;
+  password?: string;
+  isLoggedIn: boolean;
+}
+
 // ProjectSlice types
 export type ImportantDate = {
   name: string;
-  dateId: string;
-  projectID: string;
   date: Date | string;
 }
 
 export type Project = {
-  projectID: string;
+  projectID?: string;
   name: string;
-  taskList: Task[];
-  deadline: Date | string;
+  username: string;
+  tasks: Task[];
+  deadline?: Date | string;
   importantDates: Array<ImportantDate>;
+  progress: number
 };
 
 export type ProjectSliceState = {

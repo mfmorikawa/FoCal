@@ -1,35 +1,50 @@
-import { Task, TaskResource, TaskSliceState } from "../../vite-env";
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { Task, TaskResource, TaskSliceState } from "../../vite-env";  
 import { RootState } from "../../app/store";
-
-const initialState: TaskSliceState = {
-  tasks: [
-    {
-      title: "House of Dragons",
-      start: new Date(2022, 9, 29, 18),
-      end: new Date(2022, 9, 29, 19),
-      allDay: false,
-      resource: {
-        ObjectID: nanoid(),
-        projectID: "0000",
-        isComplete: false,
-      },
-    },
-    {
-      title: "Software Engineering",
-      start: new Date(2022, 9, 31, 15),
-      end: new Date(2022, 9, 31, 16, 50),
-      allDay: false,
-      resource: {
-        ObjectID: nanoid(),
-        projectID: "0000",
-        isComplete: false,
-      },
-    },
-  ],
-};
+import { focalApi } from "../api/focalApi";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialState } from "../api/tasks";
 
 export const tasksSlice = createSlice({
+// focalApi.injectEndpoints({
+  // endpoints: (builder) => ({
+  //   getTasks: builder.query<Task[], void>({
+  //     query: () => "/tasks",
+  //     providesTags: ["Tasks"],
+  //   }),
+  //   getTask: builder.query<Task, void>({
+  //     query: (taskID) => `/tasks/${taskID}`
+  //   }),
+  //   createTask: builder.mutation({
+  //     query: (newTask: Task) => ({
+  //       url: `/tasks`,
+  //       method: "POST",
+  //       body: {
+  //         ...newTask,
+  //         start: newTask.start?.toISOString(),
+  //         end: newTask.end?.toISOString()
+  //       },
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  //   deleteTask: builder.mutation({
+  //     query: (taskID: string) => ({
+  //       url: `/tasks/${taskID}`,
+  //       method: "DELETE"
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  //   updateTask: builder.mutation({
+  //     query: (updatedTask: Task) => ({
+  //       url: `/tasks/${updatedTask.resource?.taskID || ""}`,
+  //       method: "PUT",
+  //       body: {
+  //         ...updatedTask,
+
+  //       }
+  //     }),
+  //     invalidatesTags: ["Tasks"],
+  //   }),
+  // })
   name: "tasks",
   initialState,
   reducers: {
@@ -47,7 +62,7 @@ export const tasksSlice = createSlice({
         (task: Task) =>
           task.resource &&
           cur.resource &&
-          task.resource.ObjectID == cur.resource.ObjectID
+          task.resource.taskID == cur.resource.taskID
       );
       const updatedEvent = {
         ...cur,
@@ -63,7 +78,7 @@ export const tasksSlice = createSlice({
         ({ resource }) =>
           resource &&
           actions.payload.resource &&
-          resource.ObjectID != actions.payload.resource.ObjectID
+          resource.taskID != actions.payload.resource.taskID
       );
     },
     setSelected: (state, actions: PayloadAction<Task>) => {
@@ -75,7 +90,7 @@ export const tasksSlice = createSlice({
 
 export const { createTask, updateTask, removeTask, setSelected } =
   tasksSlice.actions;
-
 export const selectTasks = (state: RootState) => state.tasks.tasks;
 export const selectedTask = (state: RootState) => state.tasks.selected;
 export default tasksSlice.reducer;
+

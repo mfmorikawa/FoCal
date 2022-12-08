@@ -78,7 +78,7 @@ export default function Calendar(props: any) {
         start,
         end,
         resource: {
-          ObjectID: nanoid(8),
+          taskID: nanoid(8),
           projectID: "0000",
           isComplete: false,
         },
