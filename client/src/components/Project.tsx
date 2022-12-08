@@ -2,9 +2,9 @@ import { faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
-import TasksList from "../../features/tasks/TaskList";
-import { Project, ImportantDate } from "../../vite-env";
-import Progress from "../../components/Progress";
+import TasksList from "../features/tasks/TaskList";
+import { Project, ImportantDate } from "../vite-env";
+import Progress from "./Progress";
 
 export default function Projects() {
   const Tasks = TasksList();

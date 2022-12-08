@@ -40,7 +40,8 @@ export const focalApi = createApi({
         url: `/users/${username}`,
         method: 'POST',
         body: password
-      })
+      }),
+      invalidatesTags: ["User"]
     })
   }),
 });
