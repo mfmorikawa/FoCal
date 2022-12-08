@@ -20,15 +20,15 @@ export const projects: Project[] = [
           title: "Task 1"
         },
         {
-          end: new Date("2022-12-11 12:00:00"),
+          end: new Date("2022-13-8 15:00:00"),
           allDay: false,
           resource: {
             isComplete: false,
             projectID: "4eec8b8f-572e-4a49-90f8-c6706a1db6d8",
             taskID: "8b325996-c752-4048-9e9b-22bdd46e8037"
           },
-          start: new Date("2022-12-11 10:00:00"),
-          title: "Task 2"
+          start: new Date("2022-13-8 17:00:00"),
+          title: "Presentation"
           },
         ],
         progress: 50
@@ -75,7 +75,7 @@ export const projects: Project[] = [
           ],
           importantDates: new Array<ImportantDate>(),
           deadline: "none",
-          progress: 0,
+          progress:33,
         },
         {
           projectID: nanoid(8),
@@ -86,7 +86,7 @@ export const projects: Project[] = [
               end: new Date("2022-12-12 12:00:00"),
               allDay: false,
               resource: {
-                isComplete: false,
+                isComplete: true,
                 projectID: "4eec8b8f-572e-4a49-90f8-c6706a1db6d8",
                 taskID: "fedad225-ad34-49fa-99ec-fcfdcad92920"
               },
@@ -96,7 +96,7 @@ export const projects: Project[] = [
           ],
           importantDates: new Array<ImportantDate>(),
           deadline: "Dec 16 2022",
-          progress: 50,
+          progress: 100,
         },
     {
       username: "user1",

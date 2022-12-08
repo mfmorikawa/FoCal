@@ -9,7 +9,6 @@ import currentTask from "../features/tasks/selectedTask";
 import { Task } from "../vite-env";
 import {
   createTask,
-  removeTask,
   updateTask,
   setSelected,
 } from "../features/tasks/tasksSlice";
@@ -46,11 +45,6 @@ const now = new Date();
 const start = endOfHour(now);
 const end = addHours(start, 1);
 const CalendarComponent = withDragAndDrop(BigCalendar);
-/*
-  Calendar Container Component
-  TODO: Add information, create, and delete modals (or combine into one?)
-  TODO: Type the props
-*/
 export default function Calendar(props: any) {
   // props & state constants
   const { height, defaultView } = props;
@@ -120,7 +114,7 @@ export default function Calendar(props: any) {
       style={{ height: height, margin: 20 }}
       step={5}
       timeslots={12}
-      defaultDate={new Date(2022, 10, 10)}
+      defaultDate={new Date(2022, 13, 10)}
       popup={true}
     />
   );
