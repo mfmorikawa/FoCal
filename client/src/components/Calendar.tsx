@@ -114,7 +114,7 @@ export default function Calendar(props: any) {
       style={{ height: height, margin: 20 }}
       step={5}
       timeslots={12}
-      defaultDate={new Date(2022, 13, 10)}
+      defaultDate={new Date()}
       popup={true}
     />
   );
