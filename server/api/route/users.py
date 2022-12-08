@@ -45,7 +45,7 @@ def addUser():
 def deleteUser(user_id):
     user = User.query.get(user_id)
     if user is None:
-        return {"message":"Task does not exist."}, 404
+        return {"message":"User does not exist."}, 404
     db.session.delete(user)
     db.session.commit()
 

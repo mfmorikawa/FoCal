@@ -18,10 +18,11 @@ projects_schema = ProjectsSchema()
 
 #TODO: Return object itself
 
-@project_api.get("/<string:username>/projects", endpoint="getProjectList")
-def getProjectList(username):
+@project_api.get("/<string:userID>/projects", endpoint="getProjectList")
+def getProjectList(userID):
     
-    projects = Project.query.join(User).filter(User.userID == username).all()
+    projects = Project.query.join(User).filter(User.userID == userID).all()
+    print(projects)
     result = projects_schema.dump(projects, many=True)
     return result, 200
 
@@ -30,7 +31,6 @@ def getProjectList(username):
 def createProject(userID):
 
     json_data = request.get_json()
-    print(json_data)
 
     if not json_data:
         return {"message": "Empty request"}, 400
@@ -47,7 +47,7 @@ def createProject(userID):
         db.session.add(new_project)
         db.session.commit()
     except IntegrityError:
-        return {"message": "Error creating project"}, 400
+        return {"message": "Error: User likely does not exists."}, 400
 
     result = projects_schema.dump(new_project)
     return result, 201
