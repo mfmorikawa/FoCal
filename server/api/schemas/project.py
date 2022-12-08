@@ -20,7 +20,9 @@ class ProjectsSchema(Schema):
 
     @post_load
     def createImportantDates(self, data: dict, **kwargs):
-        dates = data["importantDates"]
+        dates = data.get("importantDates")
+        if dates is None:
+            return data
         projectID = uuid4()
         if data.get("projectID") is None:
             data["projectID"] = projectID
