@@ -7,11 +7,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'happy-dom',
+    environment: "happy-dom",
     coverage: {
       reporter: ["text", "html"],
     },
-    exclude: [...configDefaults.exclude, 'packages/template/*'],
-    globals: true
-  }
+    exclude: [...configDefaults.exclude, "packages/template/*"],
+    globals: true,
+  },
 });
